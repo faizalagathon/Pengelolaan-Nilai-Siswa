@@ -10,12 +10,11 @@
     <link rel="stylesheet" href="style/style_beranda.css">
   </head>
   <body>
-     <!-- SECTION - ini dicopy ke semua untuk sesi -->
-     <?php
-    session_start();
+    <!-- SECTION - ini dicopy ke semua untuk sesi -->
+    <?php
     if (!isset($_SESSION["login_mapel"])){
         header("Location: login_mapel.php");
-        exit;        
+        exit;    
     }
     ?>
     <!-- !SECTION -  -->

@@ -1,3 +1,10 @@
+<?php
+require "../functions.php";
+if (!isset($_SESSION["login_wali"])) {
+  header("Location: login_wali.php");
+  exit;
+}
+?>
 <!doctype html>
 <html lang="en">
 

@@ -1,3 +1,11 @@
+<?php
+require "../functions.php";
+if (!isset($_SESSION["login_mapel"])) {
+  header("Location: login_mapel.php");
+  exit;
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -9,8 +17,6 @@
   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="style/style_beranda.css">
 </head>
-
-<?php require "../functions.php" ?>
 
 <body>
   <div class="">

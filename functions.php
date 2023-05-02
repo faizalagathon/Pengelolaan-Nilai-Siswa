@@ -2,6 +2,8 @@
 
 $link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_faizal");
 
+session_start();
+
 $i = 1;
 $sqlReadSiswa = "SELECT * FROM siswa";
 $sqlReadNilai = "SELECT * FROM nilai 

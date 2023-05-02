@@ -12,7 +12,6 @@
   <body>
     <!-- SECTION - ini dicopy ke semua untuk sesi -->
     <?php
-    session_start();
     if (!isset($_SESSION["login_wali"])){
         header("Location: login_wali.php");
         exit;        
