@@ -51,19 +51,19 @@
           <!-- MENU -->
         <ul class="nav justify-content-center bg-light">
             <li class="nav-item">
-                <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.html">
+                <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
                     <img src="../icon/reader.png" class="ms-4" width="40rem" alt=""><br>
                     Daftar Murid
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="tambah_murid.html">
+                <a class="nav-link fw-bold text-dark" href="tambah_murid.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
                     Tambah Data
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-dark text-decoration-underline" href="data_nilai.html">
+                <a class="nav-link fw-bold text-dark text-decoration-underline" href="data_nilai.php">
                     <img src="../icon/score.png" class="ms-5" width="40rem" alt=""><br>
                     Data Nilai Murid
                 </a>

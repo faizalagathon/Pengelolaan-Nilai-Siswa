@@ -1,16 +1,18 @@
 <?php
 
-$link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_faizal");
+$link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_v3");
 
 session_start();
 
 $i = 1;
+$j = 0; 
 $sqlReadSiswa = "SELECT * FROM siswa";
 $sqlReadNilai = "SELECT * FROM nilai 
   INNER JOIN mengajar ON nilai.id_mengajar = mengajar.id
-  INNER JOIN siswa ON mengajar.id_siswa = siswa.id 
+  INNER JOIN siswa ON mengajar.nis = siswa.nis 
   WHERE nilai.id_mengajar = mengajar.id && 
-  mengajar.id_siswa = siswa.id";
+  mengajar.nis = siswa.nis";
+$sqlReadMapel = "SELECT * FROM mapel";
 
 function query($sql)
 {
@@ -24,3 +26,4 @@ function query($sql)
 }
 
 $nilaiSiswa = query($sqlReadNilai);
+$daftarMapel = query($sqlReadMapel);

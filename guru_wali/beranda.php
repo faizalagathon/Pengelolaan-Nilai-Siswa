@@ -1,8 +1,54 @@
 <?php
-require "../functions.php";
+require "../crudSiswa.php";
 if (!isset($_SESSION["login_wali"])) {
   header("Location: login_wali.php");
   exit;
+}
+$siswa = query("SELECT 
+*, 
+siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+jurusan.nama AS nama_j,
+guru.nama AS nama_g, guru.alamat AS alamat_g
+FROM siswa 
+INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+INNER JOIN mengajar ON siswa.nis = mengajar.nis
+INNER JOIN guru ON mengajar.id_guru = guru.id
+WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip_wali]
+");
+
+if (isset($_POST["cari"])) {
+  $siswa = cariSiswa($_POST["keyword"]);
+}
+
+if (isset($_POST["urut"]) && $_POST["urut"] == "asc") {
+  $siswa = query("SELECT*FROM siswa ORDER BY nama ASC");
+}
+if (isset($_POST["urut"]) && $_POST["urut"] == "desc") {
+  $siswa = query("SELECT*FROM siswa ORDER BY nama DESC");
+}
+
+//cek apakah tombol submit sudah di tekan apa belum
+if (isset($_POST["submit"])) {
+  //cek keberhasilan data berhasil di ubah atau tidak
+  if (ubah($_POST) > 0) {
+    echo "
+        
+        <script>
+        alert('data berhasil diubah');
+        document.location.href = 'beranda.php';
+        </script>
+        
+        ";
+  } else {
+    echo "
+        <script>
+        alert('data gagal diubah');
+        document.location.href = 'beranda.php';
+        </script>
+        ";
+  }
 }
 ?>
 <!doctype html>
@@ -21,6 +67,7 @@ if (!isset($_SESSION["login_wali"])) {
   <div class="">
     <!-- HEADER -->
     <nav class="navbar bg-dark judul">
+
       <div class="container">
         <a class="navbar-brand fw-bold fs-4 text-white" href="#">
           <img src="../icon/SMKN-1-Cirebon.png" alt="" class="bg-white p-1 rounded-4" width="80" height="80">
@@ -38,7 +85,7 @@ if (!isset($_SESSION["login_wali"])) {
             </div>
             <div class="offcanvas-body">
               <img src="../icon/profile.png" width="100rem" alt="" class="mb-3">
-              <p>Muhammad Azis Nurfajari</p>
+              <p><?= query("SELECT nama FROM guru WHERE nip = $_SESSION[nip_wali]")[0]['nama'] ?></p>
               <div class="footer">
                 <button class="border-0 bg-white fw-bold">
                   <img src="../icon/logout.png" width="30rem" alt="">Logout
@@ -59,13 +106,13 @@ if (!isset($_SESSION["login_wali"])) {
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link fw-bold text-decoration-none text-dark" href="tambah_murid.html">
+        <a class="nav-link fw-bold text-decoration-none text-dark" href="tambah_murid.php">
           <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
           Tambah Data
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link fw-bold text-dark" href="data_nilai.html">
+        <a class="nav-link fw-bold text-dark" href="data_nilai.php">
           <img src="../icon/score.png" class="ms-5" width="40rem" alt=""><br>
           Data Nilai Murid
         </a>
@@ -123,106 +170,89 @@ if (!isset($_SESSION["login_wali"])) {
           <th>Password</th>
           <th class="w-25">Aksi</th>
         </tr>
-        <tr class="text-center">
-          <td>1</td>
-          <td>12127912</td>
-          <td>Muhammad Azis Nurfajari</td>
-          <td>L</td>
-          <td>Cirebon</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="text-center">
-            <button class="bg-transparent border-0">
-              <a href="">
-                <img src="../icon/delete1.png" width="30rem" alt="hapus">
-              </a>
-            </button>
-            <button class="bg-transparent border-0" type="button" data-bs-target="#edit" data-bs-toggle="modal">
-              <img src="../icon/edit1.png" width="30rem" alt="edit">
-            </button>
-            <button class="bg-transparent border-0">
-              <a href="">
-                <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
-              </a>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="text-center">
-            <button class="bg-transparent border-0">
-              <a href="">
-                <img src="../icon/delete1.png" width="30rem" alt="">
-              </a>
-            </button>
-            <button class="bg-transparent border-0" type="button" data-bs-target="#edit" data-bs-toggle="modal">
-              <img src="../icon/edit1.png" width="30rem" alt="">
-            </button>
-            <button class="bg-transparent border-0">
-              <a href="">
-                <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
-              </a>
-            </button>
-          </td>
-        </tr>
+        <?php foreach ($siswa as $row) : ?>
+          <tr class="text-center">
+            <td><?= $i++; ?></td>
+            <td><?= $row["nis"]; ?></td>
+            <td><?= $row["nama_s"]; ?></td>
+            <td><?= $row["jk"]; ?></td>
+            <td><?= $row["alamat_s"]; ?></td>
+            <td><?= $row["angkatan"]; ?></td>
+            <td><?= $row["kode_jurusan"]; ?></td>
+            <td><?= $row["password"]; ?></td>
+            <td class="text-center">
+              <button class="bg-transparent border-0">
+                <a href="aksi_hapus.php?id=<?= $row["nis"]; ?>" onclick="return confirm('apakah anda yakin ingin menghapus?')" ;>
+                  <img src="../icon/delete1.png" width="30rem" alt="">
+                </a>
+              </button>
+              <button class="bg-transparent border-0" type="button" data-bs-target="#edit<?= $row["nis"]; ?>" data-bs-toggle="modal">
+                <img src="../icon/edit1.png" width="30rem" alt="edit">
+              </button>
+              <button class="bg-transparent border-0">
+                <a href="functions.php?id=<?=$row['nis']?>&paramAksi=acakPass" onclick="return confirm('Yakin ingin merubah Password siswa?')">
+                  <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
+                </a>
+              </button>
+
+              <!-- AWAL POP UP EDIT -->
+              <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit<?= $row["nis"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header border-0 text-white" style="background: linear-gradient(120deg,#4433ff,#00ffff);">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Murid</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body bg-secondary">
+                      <form action="" class="text-start" method="POST">
+                        <div class="row">
+                          <input type="hidden" name="id" value="<?= $row["nis"]; ?>">
+                          <div class="mb-3">
+                            <label for="nis" class="form-label text-white">NIS :</label>
+                            <input type="text" class="form-control" id="nis" name="nis" disabled value="<?= $row["nis"]; ?>">
+                          </div>
+                          <div class="mb-3">
+                            <label for="nama" class="form-label text-white">Nama :</label>
+                            <input type="text" class="form-control" id="nama" name="nama" requaired value="<?= $row["nama"]; ?>">
+                          </div>
+                          <div class="mb-3">
+                            <label for="jk" class="form-label text-white">Jenis Kelamin :</label>
+                            <select class="form-select w-25" aria-label="Default select example" name="jk">
+                              <option selected value="<?= $row["jk_s"]; ?>"><?= $row["jk_s"]; ?></option>
+                              <?php if ($row['jk_s'] === 'L') : ?>
+                                <option value="P">P</option>
+                              <?php else : ?>
+                                <option value="L">L</option>
+                              <?php endif; ?>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="alamat" class="form-label text-white">Alamat :</label>
+                            <textarea name="alamat" class="form-control" id="alamat" cols="30" rows="3"><?= $row["alamat_s"]; ?></textarea>
+                          </div>
+                        </div>
+                        <div class="text-end">
+                          <button class="btn btn-warning">
+                            <img src="../icon/cancel.png" width="20rem" alt="">
+                            Batal
+                          </button>
+                          <button class="btn btn-info" type="submit" name="submit">
+                            <img src="../icon/save.png" width="20rem" alt="">
+                            Save
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- AKHIR POP UP EDIT -->
+              
+            </td>
+          </tr>
+        <?php endforeach; ?>
       </table>
       <!-- AKHIR TABEL MURID -->
-      <!-- AWAL POP UP EDIT -->
-      <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header border-0 text-white" style="background: linear-gradient(120deg,#4433ff,#00ffff);">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Murid</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body bg-secondary">
-              <form action="">
-                <div class="row">
-                  <div class="mb-3">
-                    <label for="username" class="form-label text-white">NIS :</label>
-                    <input type="text" class="form-control" id="username">
-                  </div>
-                  <div class="mb-3">
-                    <label for="nama" class="form-label text-white">Nama :</label>
-                    <input type="text" class="form-control" id="nama">
-                  </div>
-                  <div class="mb-3">
-                    <label for="username" class="form-label text-white">Jenis Kelamin :</label>
-                    <select class="form-select w-25" aria-label="Default select example">
-                      <option selected></option>
-                      <option value="1">L</option>
-                      <option value="2">P</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="password" class="form-label text-white">Alamat :</label>
-                    <textarea name="" class="form-control" id="" cols="30" rows="3"></textarea>
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button class="btn btn-warning">
-                    <img src="../icon/cancel.png" width="20rem" alt="">
-                    Batal
-                  </button>
-                  <button class="btn btn-info">
-                    <img src="../icon/save.png" width="20rem" alt="">
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- AKHIR POP UP EDIT -->
     </div>
     <!-- FOOTER -->
     <div class="bg-dark mt-5 p-1 pt-2 w-100" id="footer" style="margin-bottom: -2rem;">

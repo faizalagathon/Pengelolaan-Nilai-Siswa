@@ -1,3 +1,33 @@
+<?php 
+require 'functions.php';
+
+
+// TAMBAH
+
+
+if (isset($_POST["submit"])){
+
+    if(tambahSiswa($_POST) > 0){
+        echo "
+        
+        <script>
+        alert('data berhasil ditambahkan');
+        document.location.href = 'beranda.php';
+        </script>
+        
+        ";
+    }else{
+        echo "
+        <script>
+        alert('data gagal ditambahkan');
+        document.location.href = 'beranda.php';
+        </script>
+        ";
+    }
+}
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,68 +82,80 @@
         <!-- MENU -->
         <ul class="nav justify-content-center bg-light">
             <li class="nav-item">
-                <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.html">
+                <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
                     <img src="../icon/reader.png" class="ms-4" width="40rem" alt=""><br>
                     Daftar Murid
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-decoration-underline text-dark" href="tambah_murid.html">
+                <a class="nav-link fw-bold text-decoration-underline text-dark" href="tambah_murid.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
                     Tambah Data
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="data_nilai.html">
+                <a class="nav-link fw-bold text-dark" href="data_nilai.php">
                     <img src="../icon/score.png" class="ms-5" width="40rem" alt=""><br>
                     Data Nilai Murid
                 </a>
             </li>
         </ul>
         <!-- AKHIR MENU -->
+
+
+
+
+
+
         <!-- FORM TAMBAH AKUN DAN MURID -->
         <div class="container-fluid">
-            <form action="" class="w-50 m-auto">
+            <form action="" method="POST" class="w-50 m-auto">
                 <div class="bg-secondary m-3 p-3 border border-3 border-white rounded-4">
                     <div class="">
                         <div class="mb-3">
                             <h3 class="text-white">Tambah Data Murid</h3>
                         </div>
                         <div class="mb-3">
-                            <label for="kode" class="form-label text-white">NIS :</label>
-                            <input type="text" class="form-control" id="kode">
+                            <label for="nis" class="form-label text-white">NIS :</label>
+                            <input type="text" name="nis" id="nis" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="username" class="form-label text-white">Nama :</label>
-                            <input type="text" class="form-control" id="username">
+                            <label for="nama" class="form-label text-white">Nama :</label>
+                            <input type="text" class="form-control" name="nama" id="nama">
                         </div>
                         <div class="d-flex gap-3">
                             <div class="mb-3 w-25">
                                 <label for="jk" class="form-label text-white">JK :</label>
-                                <select class="form-select" id="jk" aria-label="Default select example">
+                                <select class="form-select" id="jk" name="jk" type="text" aria-label="Default select example">
                                     <option selected>Jenis Kelamin</option>
-                                    <option value="1">L</option>
-                                    <option value="2">P</option>
+                                    <option value="L">L</option>
+                                    <option value="P">P</option>
+                                </select>
+                            </div>                           
+                            
+                           <div class="mb-3 w-25">
+                                <label for="angkatan" class="form-label text-white">Angkatan :</label>
+                                <select class="form-select" id="angkatan" name="angkatan" type="text" aria-label="Default select example">
+                                    <option selected>Angkatan </option>
+                                    <option value="X">X</option>
+                                    <option value="XI">XI</option>
+                                    <option value="XII">XII</option>
+                                    
                                 </select>
                             </div>
+                            
                             <div class="mb-3 w-25">
-                                <label for="jk" class="form-label text-white">Kelas :</label>
-                                <select class="form-select" id="jk" aria-label="Default select example">
-                                    <option selected></option>
-                                    <option value="1">X</option>
-                                    <option value="2">XI</option>
-                                    <option value="3">XII</option>
-                                    <option value="4">XIII</option>
+                                <label for="jurusan" class="form-label text-white">Jurusan :</label>
+                                <select class="form-select" id="jurusan" name="kode_jurusan" type="text" aria-label="Default select example">
+                                    <option selected>Jurusan </option>
+                                    <option value="RPL-1">Rekayasa Perangkat Lunak 1</option>
                                 </select>
                             </div>
-                            <div class="mb-3 w-25">
-                                <label for="jk" class="form-label text-white">Jurusan :</label>
-                                <input type="text" class="form-control">
-                            </div>
+
                         </div>
                         <div class="mb-3">
-                            <label for="username" class="form-label text-white">Alamat :</label>
-                            <textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
+                            <label for="alamat" class="form-label text-white">Alamat :</label>
+                            <textarea class="form-control" name="alamat" id="alamat" type="text" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="text-end">
@@ -121,7 +163,7 @@
                             <img src="../icon/cancel.png" width="20rem" alt="">
                             Batal
                         </button>
-                        <button class="btn btn-info">
+                        <button class="btn btn-info" name="submit" type="submit">
                             <img src="../icon/add.png" width="20rem" alt="">
                             Tambah
                         </button>
@@ -130,6 +172,14 @@
             </form>
         </div>
         <!-- AKHIR FORM TAMBAH AKUN DAN MURID -->
+
+
+
+
+
+
+
+
         <!-- FOOTER -->
         <div class="bg-dark mt-5 p-1 pt-2 w-100" id="footer" style="margin-bottom: -2rem;">
             <footer class="main-footer mt-3" style="padding-top: 10px;">

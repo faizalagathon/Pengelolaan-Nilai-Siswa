@@ -160,8 +160,7 @@ if (!isset($_SESSION["login_mapel"])) {
                 </td>
               </tr>
               <!-- AWAL POP UP HAPUS -->
-              <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="hapus<? //= $nilaiSiswa["id_nilai"] 
-                                                                                        ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="hapus<?= $siswa["id_nilai"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header border-0 text-white" style="background: linear-gradient(120deg,#4433ff,#00ffff);">
@@ -173,27 +172,22 @@ if (!isset($_SESSION["login_mapel"])) {
                         <div class="row">
                           <div class="col">
                             <div class="mb-3">
-                              <label for="uh" class="form-label text-white">UH : <? //= $nilaiSiswa["uh"] 
-                                                                                  ?></label>
+                              <label for="uh" class="form-label text-white">UH : <?= $siswa["uh"] ?></label>
                             </div>
                             <div class="mb-3">
-                              <label for="PTS" class="form-label text-white">PTS : <? //= $nilaiSiswa["uts"] 
-                                                                                    ?></label>
+                              <label for="PTS" class="form-label text-white">PTS : <?= $siswa["uts"] ?></label>
                             </div>
                           </div>
                           <div class="col">
                             <div class="mb-3">
-                              <label for="PAS" class="form-label text-white">PAS : <? //= $nilaiSiswa["uas"] 
-                                                                                    ?></label>
+                              <label for="PAS" class="form-label text-white">PAS : <?= $siswa["uas"] ?></label>
                             </div>
                             <div class="mb-3">
-                              <label for="NA" class="form-label text-white">NA : <? //= $nilaiSiswa["na"] 
-                                                                                  ?></label>
+                              <label for="NA" class="form-label text-white">NA : <?= $siswa["na"] ?></label>
                             </div>
                           </div>
                         </div>
-                        <input type="hidden" name="idNilai" value="<? //= $nilaiSiswa["id_nilai"] 
-                                                                    ?>">
+                        <input type="hidden" name="idNilai" value="<?= $siswa["id_nilai"] ?>">
                         <div class="text-end mt-3">
                           <button type="reset" class="btn btn-danger py-1 px-4 pt-0">
                             <img src="../icon/multiply.png" width="20rem" alt="">
@@ -211,8 +205,7 @@ if (!isset($_SESSION["login_mapel"])) {
               </div>
               <!-- AKHIR POP UP HAPUS -->
               <!-- AWAL POP UP EDIT -->
-              <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit<? //= $nilaiSiswa["id_nilai"] 
-                                                                                      ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit<?= $siswa["id_nilai"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header border-0 text-white" style="background: linear-gradient(120deg,#4433ff,#00ffff);">
@@ -225,30 +218,25 @@ if (!isset($_SESSION["login_mapel"])) {
                           <div class="col">
                             <div class="mb-3">
                               <label for="uh" class="form-label text-white">UH :</label>
-                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="uh" name="uh" value="<? //= $nilaiSiswa["uh"] 
-                                                                                                                                  ?>">
+                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="uh" name="uh" value="<?= $siswa["uh"] ?>">
                             </div>
                             <div class="mb-3">
                               <label for="PTS" class="form-label text-white">PTS :</label>
-                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="PTS" name="PTS" value="<? //= $nilaiSiswa["uts"] 
-                                                                                                                                    ?>">
+                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="PTS" name="PTS" value="<?= $siswa["uts"] ?>">
                             </div>
                           </div>
                           <div class="col">
                             <div class="mb-3">
                               <label for="PAS" class="form-label text-white">PAS :</label>
-                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="PAS" name="PAS" value="<? //= $nilaiSiswa["uas"] 
-                                                                                                                                    ?>">
+                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="PAS" name="PAS" value="<?= $siswa["uas"] ?>">
                             </div>
                             <div class="mb-3">
                               <label for="NA" class="form-label text-white">NA :</label>
-                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="NA" name="NA" value="<? //= $nilaiSiswa["na"] 
-                                                                                                                                  ?>">
+                              <input type="number" class="form-control border-bottom border-0 rounded-0" id="NA" name="NA" value="<?= $siswa["na"] ?>">
                             </div>
                           </div>
                         </div>
-                        <input type="hidden" name="idNilai" value="<? //= $nilaiSiswa["id_nilai"] 
-                                                                    ?>">
+                        <input type="hidden" name="idNilai" value="<?= $siswa["id_nilai"] ?>">
                         <div class="text-end mt-3">
                           <button type="reset" class="btn btn-danger py-1 px-4 pt-0">
                             <img src="../icon/multiply.png" width="20rem" alt="">

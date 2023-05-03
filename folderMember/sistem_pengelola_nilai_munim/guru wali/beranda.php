@@ -155,11 +155,6 @@ if (isset($_POST["submit"])){
             </div>
             <!-- AKHIR HEADER TABEL -->
 
-
-
-
-
-
             <!-- TABEL MURID -->
             <table class="table table-light table-striped mb-5 m-auto">
                 <tr>
