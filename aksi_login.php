@@ -5,7 +5,7 @@ if(isset($_GET["ParamAksi"])){
     $table=$_GET['ParamTable'];
     $cek = $_GET['ParamCek'];
     $error=$_GET['ParamError'];
-    $halaman=$_GET['ParamHalaman'];
+    // $halaman=$_GET['ParamHalaman'];
 
 }
 //SECTION aksi login
@@ -45,6 +45,7 @@ if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
             if($table=="siswa"){
                 if($row['nis']==$nis && $row ['password']==$password){
                     $_SESSION['login_siswa'] = true;
+                    $_SESSION['nis_siswa'] = $nis;
                     header("Location: siswa/beranda.php");
                     exit;
                 }
@@ -55,7 +56,6 @@ if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
                     $_SESSION['login_wali'] = true;
                     $_SESSION['nip_wali'] = $nip;
                     header("Location: guru_wali/beranda.php");
-                    exit;
                     $_SESSION['login_mapel'] = true;
                     $_SESSION['nip_mapel'] = $nip;
                     header("Location:guru_mapel/beranda.php");

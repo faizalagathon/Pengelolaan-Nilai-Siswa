@@ -11,19 +11,24 @@ if(isset($_GET["ParamAksi"])){
 //SECTION aksi login
 if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
     $password=htmlspecialchars($_POST["password"]);
+        
         if($table=="admin"){
             $nama=htmlspecialchars($_POST["nama"]);
             $result = mysqli_query($conn, "SELECT * FROM $table WHERE nama='$nama' AND password='$password'");
         }
+       
         if($table=="siswa"){
             $nis=htmlspecialchars($_POST["nis"]);
 
             $result = mysqli_query($conn, "SELECT * FROM $table WHERE nis='$nis' AND password='$password'");
         }
+      
         if($table=="guru"){
         $nip=htmlspecialchars($_POST["nip"]);
+
         $result = mysqli_query($conn, "SELECT * FROM $table WHERE nip='$nip' AND password='$password'");
         }
+
         
         if($cek=="cekpass"){
             if (mysqli_num_rows($result) === 1) {
@@ -49,7 +54,6 @@ if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
                 if($row['nip']==$nip && $row ['password']==$password){
                     $_SESSION['login_wali'] = true;
                     header("Location: guru_wali/beranda.php");
-                    exit;
                     $_SESSION['login_mapel'] = true;
                     header("Location:guru_mapel/beranda.php");
                     exit;

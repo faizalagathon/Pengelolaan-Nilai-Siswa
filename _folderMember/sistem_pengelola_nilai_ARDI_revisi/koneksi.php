@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=mysqli_connect("localhost","root","","bindo_nilai_siswa_faizal");
+$conn=mysqli_connect("localhost","root","","bindo_nilai_siswa_v3");
 
 function query($query){
     global $conn;
