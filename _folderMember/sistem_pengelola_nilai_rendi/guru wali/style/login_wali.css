@@ -1,0 +1,19 @@
+body{
+    background: url(../../bg/bg7.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+form{
+    box-shadow: 10px 10px 10px rgb(0, 102, 255);
+    background-color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    width: 40%;
+}
+img{
+    width: 4rem;
+}
+.login{
+    background: linear-gradient(
+        120deg,#0066ff,#ff99cc
+    );
+}
