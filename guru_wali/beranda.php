@@ -15,7 +15,7 @@ INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
 INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
 INNER JOIN mengajar ON siswa.nis = mengajar.nis
 INNER JOIN guru ON mengajar.id_guru = guru.id
-WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip_wali]
+WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip]
 ");
 
 if (isset($_POST["cari"])) {
@@ -23,10 +23,34 @@ if (isset($_POST["cari"])) {
 }
 
 if (isset($_POST["urut"]) && $_POST["urut"] == "asc") {
-  $siswa = query("SELECT*FROM siswa ORDER BY nama ASC");
+  $siswa = query("SELECT 
+  *, 
+  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+  jurusan.nama AS nama_j,
+  guru.nama AS nama_g, guru.alamat AS alamat_g
+  FROM siswa 
+  INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+  INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+  INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+  INNER JOIN mengajar ON siswa.nis = mengajar.nis
+  INNER JOIN guru ON mengajar.id_guru = guru.id
+  WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip]
+  ORDER BY nama ASC");
 }
 if (isset($_POST["urut"]) && $_POST["urut"] == "desc") {
-  $siswa = query("SELECT*FROM siswa ORDER BY nama DESC");
+  $siswa = query("SELECT 
+  *, 
+  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+  jurusan.nama AS nama_j,
+  guru.nama AS nama_g, guru.alamat AS alamat_g
+  FROM siswa 
+  INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+  INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+  INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+  INNER JOIN mengajar ON siswa.nis = mengajar.nis
+  INNER JOIN guru ON mengajar.id_guru = guru.id
+  WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip] 
+  ORDER BY nama DESC");
 }
 
 //cek apakah tombol submit sudah di tekan apa belum
@@ -80,12 +104,12 @@ if (isset($_POST["submit"])) {
 
           <div class="offcanvas offcanvas-end h-50" style="border-radius: 0px 0px 0px 20%;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">Wali Kelas XI RPL 2</h5>
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Wali Kelas <?= $siswa[0]['angkatan'] . ' ' . $siswa[0]['kode_jurusan'] ?></h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
               <img src="../icon/profile.png" width="100rem" alt="" class="mb-3">
-              <p><?= query("SELECT nama FROM guru WHERE nip = $_SESSION[nip_wali]")[0]['nama'] ?></p>
+              <p><?= query("SELECT nama FROM guru WHERE nip = $_SESSION[nip]")[0]['nama'] ?></p>
               <div class="footer">
                 <button class="border-0 bg-white fw-bold">
                   <img src="../icon/logout.png" width="30rem" alt="">Logout
@@ -156,7 +180,9 @@ if (isset($_POST["submit"])) {
       <table class="table table-light table-striped mb-5 m-auto">
         <tr>
           <th colspan="9">
-            <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
+            <a href="pdfSiswa.php">
+              <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
+            </a>
           </th>
         </tr>
         <tr class="text-center">

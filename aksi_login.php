@@ -54,10 +54,10 @@ if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
             if($table=="guru"){
                 if($row['nip']==$nip && $row ['password']==$password){
                     $_SESSION['login_wali'] = true;
-                    $_SESSION['nip_wali'] = $nip;
+                    $_SESSION['nip'] = $nip;
                     header("Location: guru_wali/beranda.php");
                     $_SESSION['login_mapel'] = true;
-                    $_SESSION['nip_mapel'] = $nip;
+                    $_SESSION['nip'] = $nip;
                     header("Location:guru_mapel/beranda.php");
                     exit;
                 }    

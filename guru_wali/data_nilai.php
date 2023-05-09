@@ -1,4 +1,12 @@
-<?php require '../functions.php' ?>
+<?php require '../crudNilai.php';
+
+if (!isset($_SESSION["login_wali"])) {
+  header("Location: login_wali.php");
+  exit;
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -38,7 +46,7 @@
             </div>
             <div class="offcanvas-body">
               <img src="../icon/profile.png" width="100rem" alt="" class="mb-3">
-              <p>Muhammad Azis Nurfajari</p>
+              <p><?= query("SELECT nama FROM guru WHERE nip = $_SESSION[nip]")[0]['nama'] ?></p>
               <div class="footer">
                 <button class="border-0 bg-white fw-bold">
                   <img src="../icon/logout.png" width="30rem" alt="">Logout
@@ -165,6 +173,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
+                  <form action="" method="get"></form>
                   <button class="dropdown-item">
                     Semester 1
                   </button>
@@ -192,15 +201,17 @@
                   <th>PAS</th>
                   <th>NA</th>
                 </tr>
-                <tr class="text-center">
-                  <td>1</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                <?php foreach (query($sqlReadNilai) as $siswa) : ?>
+              <tr class="text-center">
+                <td><?= $j++ ?></td>
+                <td><?= $siswa["nis"] ?></td>
+                <td><?= $siswa["nama_s"] ?></td>
+                <td><?= $siswa["uh"] ?></td>
+                <td><?= $siswa["uts"] ?></td>
+                <td><?= $siswa["uas"] ?></td>
+                <td><?= $siswa["na"] ?></td>
+              </tr>
+            <?php endforeach; ?>
               </table>
             </div>
             <?php $i++ ?>

@@ -5,14 +5,8 @@ $link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_v3");
 session_start();
 
 $i = 1;
-$j = 0; 
-$sqlReadSiswa = "SELECT * FROM siswa";
-$sqlReadNilai = "SELECT * FROM nilai 
-  INNER JOIN mengajar ON nilai.id_mengajar = mengajar.id
-  INNER JOIN siswa ON mengajar.nis = siswa.nis 
-  WHERE nilai.id_mengajar = mengajar.id && 
-  mengajar.nis = siswa.nis";
-$sqlReadMapel = "SELECT * FROM mapel";
+$j = 1;
+$tahunAjaran = date('Y') - 1 . '-' . date('Y');
 
 function query($sql)
 {
@@ -25,5 +19,5 @@ function query($sql)
   return $rows;
 }
 
-$nilaiSiswa = query($sqlReadNilai);
-$daftarMapel = query($sqlReadMapel);
+$daftarMapel = query("SELECT * FROM mapel");
+$daftarJurusan = query('SELECT * FROM jurusan');
