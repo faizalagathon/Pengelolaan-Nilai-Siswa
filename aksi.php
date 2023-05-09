@@ -50,7 +50,7 @@ if( isset($aksi) && $aksi == "delete" ){
     
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilTambahData");
 
 }
 // !SECTION HAPUS
@@ -89,7 +89,7 @@ if( isset($aksi) && $aksi == "edit" ){
 
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilEditData");
 
 }
 // !SECTION EDIT
@@ -255,7 +255,7 @@ if( isset($aksi) && $aksi == "tambah"){
     
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal");
+    header("Location: admin/$halamanAsal?info=berhasilTambahData");
 
 
 }

@@ -21,6 +21,7 @@ include '../aksi.php';
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/style_beranda.css">
+    <link rel="stylesheet" href="style/style_alert.css">
     <style>
         body{
             margin: 0;
@@ -59,6 +60,23 @@ include '../aksi.php';
                 </div>
             </div>
         </nav>
+        <div class="popup">
+            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilTambahData') : ?>
+                <div class="alert alert-success" role="alert">
+                    Data Berhasil Ditambahkan
+                </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilEditData') : ?>
+                <div class="alert alert-success" role="alert">
+                    Data Berhasil Ditambahkan
+                </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilHapusData') : ?>
+                <div class="alert alert-success" role="alert">
+                    Data Berhasil Ditambahkan
+                </div>
+            <?php endif; ?>
+        </div>
         <ul class="nav justify-content-center bg-light">
             <li class="nav-item">
                 <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
@@ -69,7 +87,7 @@ include '../aksi.php';
             <li class="nav-item dropdown">
                 <a class="nav-link fw-bold text-dark" href="tambah_guru.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
-                    Tambah Akun
+                    Tambah Guru
                 </a>
             </li>
             <li class="nav-item">

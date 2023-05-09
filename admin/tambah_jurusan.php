@@ -65,7 +65,7 @@ $dataAngkatan = query("SELECT * FROM angkatan");
             <li class="nav-item dropdown">
                 <a class="nav-link fw-bold text-dark" href="tambah_guru.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
-                    Tambah Akun
+                    Tambah Guru
                 </a>
             </li>
             <li class="nav-item">

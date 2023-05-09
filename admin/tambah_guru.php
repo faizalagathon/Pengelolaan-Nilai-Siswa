@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tambah Akun Gmapel</title>
+    <title>Tambah Guru</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
     <!-- <link rel="stylesheet" href="../assets/css/bootstrap.min.css"> -->
     <style>
         body{
@@ -58,7 +58,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link fw-bold text-dark text-decoration-underline" href="tambah_guru.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
-                    Tambah Akun
+                    Tambah Guru
                 </a>
             </li>
             <li class="nav-item">
@@ -88,7 +88,7 @@
             <div class="container bg-secondary w-50 mt-5 p-4 rounded-3 border border-2 border-white">
                 <form action="../aksi.php?paramTable=guru&paramAksi=tambah&paramHalaman=daftar_guru.php" method="post">
                     <div class="mb-3">
-                        <h3 class="text-white">Tambah Akun Guru Mapel</h3>
+                        <h3 class="text-white">Tambah Guru Guru Mapel</h3>
                     </div>
                     <div class="">
                         <div class="mb-3">
@@ -141,9 +141,9 @@
         
             <p class="text-center text-white"><small>- Support By XI RPL 2 -</small></p>
         </div>
-    </div>
-    <script src="../assets/js/bootstrap.bundle.js"></script>
+    <!-- </div>
+    <script src="../assets/js/bootstrap.bundle.js"></script> -->
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bootstrap.js"></script>
+    <!-- <script src="../assets/js/bootstrap.js"></script> -->
   </body>
 </html>

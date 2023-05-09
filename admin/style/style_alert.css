@@ -1,0 +1,24 @@
+.popup{
+    /* position: absolute; */
+    position: sticky;
+    /* position: fixed; */
+    z-index: 100;
+    animation: popup alternate 10s;
+    opacity: calc(0);
+  }
+  .alert{
+    position: fixed;
+    width: 38%;
+    right: 5px;
+    bottom: 1rem;
+    margin: 2px;
+  }
+  @keyframes popup{
+   0%{
+    opacity: calc(1);
+   }
+  100%{
+    opacity: calc(0);
+    right: -1000;
+  }
+  }
