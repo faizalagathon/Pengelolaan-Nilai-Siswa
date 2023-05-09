@@ -87,17 +87,17 @@
         <div class="popup">
             <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilTambahData') : ?>
                 <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
+                    Data Berhasil DiTambahkan
                 </div>
             <?php endif; ?>
             <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilEditData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
+                <div class="alert alert-warning" role="alert">
+                    Data Berhasil diEdit
                 </div>
             <?php endif; ?>
             <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilHapusData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
+                <div class="alert alert-danger" role="alert">
+                    Data Berhasil DiHapus
                 </div>
             <?php endif; ?>
         </div>

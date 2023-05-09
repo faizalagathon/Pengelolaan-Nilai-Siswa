@@ -16,6 +16,7 @@ $dataKelas = query("SELECT * FROM kelas");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style_alert.css">
     <style>
         body{
             background: url(../../bg/bg6.jpg);
@@ -58,17 +59,7 @@ $dataKelas = query("SELECT * FROM kelas");
         <div class="popup">
             <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilTambahData') : ?>
                 <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilEditData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilHapusData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil Ditambahkan
+                    Data Berhasil DiTambahkan
                 </div>
             <?php endif; ?>
         </div>

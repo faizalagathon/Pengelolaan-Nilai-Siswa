@@ -50,7 +50,7 @@ if( isset($aksi) && $aksi == "delete" ){
     
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilTambahData");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilHapusData");
 
 }
 // !SECTION HAPUS
@@ -114,7 +114,7 @@ if( isset($aksi) && $aksi == "acakPass" ){
 
     mysqli_query($link, "UPDATE $table SET password='$passwordAcak' WHERE id='$id'");
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilAcakData");
 
 }
 // !SECTION ACAK PASSWORD
