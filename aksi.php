@@ -50,7 +50,7 @@ if( isset($aksi) && $aksi == "delete" ){
     
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilHapusData");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&paramStatusAksi=berhasilHapus");
 
 }
 // !SECTION HAPUS
@@ -73,8 +73,21 @@ if( isset($aksi) && $aksi == "edit" ){
     // SECTION DAFTAR MAPEL
     if( $table == "mapel" ){
         $namaMapel = $_POST['mapel'];
+        $row = mysqli_query($link, "SELECT * FROM $table WHERE nama_m='$namaMapel'");
+        if(mysqli_num_rows($row) > 0){
+            header("Location: admin/$halamanAsal?paramStatusAksi=gagalTambahMapel");
+            exit;
+        }
+        else{
+            $queryMengajar = "UPDATE mengajar SET nama_m='param' WHERE nama_m='$id'";
+            mysqli_query($link, $queryMengajar);
+    
+            $queryMapel = "UPDATE $table SET nama_m='$namaMapel' WHERE nama_m='$id'";
+            mysqli_query($link, $queryMapel);
+    
+            $query = "UPDATE mengajar SET nama_m='$namaMapel' WHERE nama_m='param'";
+        }
 
-        $query = "UPDATE $table SET nama_m='$namaMapel' WHERE nama_m='$id'";
     }
     // SECTION DAFTAR MAPEL
 
@@ -89,7 +102,7 @@ if( isset($aksi) && $aksi == "edit" ){
 
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilEditData");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&paramStatusAksi=berhasilEdit");
 
 }
 // !SECTION EDIT
@@ -114,7 +127,7 @@ if( isset($aksi) && $aksi == "acakPass" ){
 
     mysqli_query($link, "UPDATE $table SET password='$passwordAcak' WHERE id='$id'");
 
-    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&info=berhasilAcakData");
+    header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&paramStatusAksi=berhasilAcak");
 
 }
 // !SECTION ACAK PASSWORD
@@ -151,7 +164,7 @@ if( isset($aksi) && $aksi == "tambah"){
     if($table == "mapel"){
         $namaMapel = $_POST['mapel'];
         $row = mysqli_query($link, "SELECT * FROM $table WHERE nama_m='$namaMapel'");
-        if(mysqli_num_rows($row) == 1){
+        if(mysqli_num_rows($row) > 0){
             header("Location: admin/$halamanAsal?paramStatusAksi=gagalTambahMapel");
             exit;
         }
@@ -189,6 +202,8 @@ if( isset($aksi) && $aksi == "tambah"){
         $singkatan = implode("", $kumpulanKalimat);
         $singkatan .= "-" . $jumlahJurusan;
 
+        $singkatan = strtoupper($singkatan);
+        
         $qry = "INSERT INTO jurusan VALUES ('$singkatan', '$awalKalimat')";
         mysqli_query($link, $qry);
 
@@ -255,7 +270,7 @@ if( isset($aksi) && $aksi == "tambah"){
     
     mysqli_query($link, $query);
 
-    header("Location: admin/$halamanAsal?info=berhasilTambahData");
+    header("Location: admin/$halamanAsal?paramStatusAksi=berhasilTambah");
 
 
 }

@@ -84,23 +84,6 @@
                 </div>
             </div>
         </nav>
-        <div class="popup">
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilTambahData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil DiTambahkan
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilEditData') : ?>
-                <div class="alert alert-warning" role="alert">
-                    Data Berhasil diEdit
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilHapusData') : ?>
-                <div class="alert alert-danger" role="alert">
-                    Data Berhasil DiHapus
-                </div>
-            <?php endif; ?>
-        </div>
         <ul class="nav justify-content-center bg-light">
             <li class="nav-item">
                 <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
@@ -120,11 +103,15 @@
                     Tambah Mapel
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="tambah_jurusan.php">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../icon/presentation.png" class="ms-5" width="40rem" alt=""><br>
                     Tambah Jurusan
                 </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="tambah_jurusan.php">Tambah Jurusan Baru</a></li>
+                    <li class=""><a class="dropdown-item" href="tambah_jurusan_ada.php" class="text-decoration-underline">Jurusan Yang Sudah Ada</a></li>
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,6 +124,7 @@
                 </ul>
             </li>
         </ul>
+
         <div class="container-fluid">
             <div class="dropdown-center dropdown text-center">
                 <button class="btn btn-warning text-white fw-bold dropdown-toggle w-50 rounded-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -263,8 +251,8 @@
     </div>
 
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="../assets/js/bootstrap.bundle.js"></script>
-    <script src="../assets/js/bootstrap.js"></script> -->
+    <!-- <script src="../assets/js/bootstrap.bundle.js"></script> -->
+    <!-- <script src="../assets/js/bootstrap.js"></script> -->
     <script>
         const toastLiveExample = document.getElementById('liveToast')
         const toast = new bootstrap.Toast(toastLiveExample)

@@ -74,11 +74,15 @@ $dataAngkatan = query("SELECT * FROM angkatan");
                     Tambah Mapel
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link fw-bold text-dark text-decoration-underline" href="tambah_jurusan.php">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../icon/presentation.png" class="ms-5" width="40rem" alt=""><br>
                     Tambah Jurusan
                 </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="tambah_jurusan.php">Tambah Jurusan Baru</a></li>
+                    <li class=""><a class="dropdown-item" href="tambah_jurusan_ada.php" class="text-decoration-underline">Jurusan Yang Sudah Ada</a></li>
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -60,23 +60,6 @@ include '../aksi.php';
                 </div>
             </div>
         </nav>
-        <div class="popup">
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilTambahData') : ?>
-                <div class="alert alert-success" role="alert">
-                    Data Berhasil DiTambahkan
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilEditData') : ?>
-                <div class="alert alert-warning" role="alert">
-                    Data Berhasil diEdit
-                </div>
-            <?php endif; ?>
-            <?php if(isset($_GET['info']) && $_GET['info'] == 'berhasilHapusData') : ?>
-                <div class="alert alert-danger" role="alert">
-                    Data Berhasil DiHapus
-                </div>
-            <?php endif; ?>
-        </div>
         <ul class="nav justify-content-center bg-light">
             <li class="nav-item">
                 <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
@@ -96,11 +79,15 @@ include '../aksi.php';
                     Tambah Mapel
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="tambah_jurusan.php">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../icon/presentation.png" class="ms-5" width="40rem" alt=""><br>
                     Tambah Jurusan
                 </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="tambah_jurusan.php">Tambah Jurusan Baru</a></li>
+                    <li class=""><a class="dropdown-item" href="tambah_jurusan_ada.php" class="text-decoration-underline">Jurusan Yang Sudah Ada</a></li>
+                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,6 +100,31 @@ include '../aksi.php';
                 </ul>
             </li>
         </ul>
+
+        <!-- SECTION INFO STATUS AKSI -->
+        <?php if(isset($_GET['paramStatusAksi'])) : ?>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                    <img src="../icon/gear.png" class="rounded me-2" width="20" height="20" alt="...">
+                    <strong class="me-auto">System</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                    <?php switch($_GET['paramStatusAksi']) { 
+                        case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Guru <?php break ; ?>
+                        <?php case "berhasilTambah" :?> <strong class="me-auto">Berhasil</strong> Menambah Data Guru <?php break ; ?>
+                        <?php case "berhasilEdit" :?> <strong class="me-auto">Berhasil</strong> Mengubah Data Guru <?php break ; ?>
+                        <?php case "berhasilHapus" :?> <strong class="me-auto">Berhasil</strong> Menghapus Data Guru <?php break ; ?>
+                        <?php default : ?> <strong class="me-auto">Gagal</strong> Tidak Melakukan Apapun <?php break ; ?>
+                    <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif ; ?>
+        <!-- !SECTION INFO STATUS AKSI -->
+
         <div class="container-fluid">
             <div class="dropdown-center dropdown text-center">
                 <button class="btn btn-warning text-white fw-bold dropdown-toggle w-50 rounded-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -212,14 +224,7 @@ include '../aksi.php';
                                                     <div class="">
                                                         <div class="mb-3">
                                                             <label for="jurusan" class="form-label text-white">Jurusan </label>
-                                                            <select class="form-select" aria-label="Default select example" name="jurusan" id="jurusan">
-                                                                <option selected value="<?= $data['kode_jurusan'] ?>"><?= $data['kode_jurusan'] ?></option>
-                                                                    <?php foreach($dataJurusan as $data2) : ?>
-                                                                        <?php if($data2['kode_jurusan'] != $data['kode_jurusan']) : ?>
-                                                                            <option value="<?= $data2['kode_jurusan'] ?>"><?= $data2['kode_jurusan'] ?> / <?= $data2['nama'] ?></option>
-                                                                        <?php endif ; ?>
-                                                                    <?php endforeach ; ?>
-                                                            </select>
+                                                            <input type="text" name="jurusan" class="form-control" id="jurusan" value="<?= $data['kode_jurusan'] ?>">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="angkatan" class="form-label text-white">Angkatan :</label>
@@ -275,6 +280,16 @@ include '../aksi.php';
     </div>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
+    
+
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../assets/js/bootstrap.bundle.js"></script> -->
+    <!-- <script src="../assets/js/bootstrap.js"></script> -->
+    <script>
+        const toastLiveExample = document.getElementById('liveToast')
+        const toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    </script>
+
   </body>
 </html>

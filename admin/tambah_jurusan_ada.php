@@ -1,9 +1,18 @@
+<?php 
+
+include '../aksi.php';
+
+$dataJurusan = query("SELECT * FROM jurusan");
+$dataAngkatan = query("SELECT * FROM angkatan");
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add Mapel</title>
+    <title>Add Jurusan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -60,7 +69,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-dark text-decoration-underline" href="tambah_mapel.php">
+                <a class="nav-link fw-bold text-dark" href="tambah_mapel.php">
                     <img src="../icon/lesson.png" class="ms-4" width="40rem" alt=""><br>
                     Tambah Mapel
                 </a>
@@ -89,22 +98,36 @@
         <div class="container-fluid mt-4">
             <div class="p-3">
                 <div class="bg-secondary p-3 mt-3 w-50 m-auto" style="box-shadow: 10px 10px 0px rgb(232, 232, 232);">
-                    <form action="../aksi.php?paramTable=mapel&paramAksi=tambah&paramHalaman=daftar_mapel.php" method="post">
+                    <form action="../aksi.php?paramTable=kelas&paramAksi=tambah&paramHalaman=daftar_jurusan.php" method="post">
                         <div class="mb-3">
-                            <h3 class="text-white">Tambah Mapel</h3>
+                            <h3 class="text-white">Tambah Jurusan</h3>
                         </div>
                         <div class="">
                             <div class="mb-3">
-                                <label for="mapel" class="form-label text-white">Mapel :</label>
-                                <input type="text" name="mapel" class="form-control" id="mapel">
+                                <label for="jurusan" class="form-label text-white">Jurusan :</label>
+                                <select class="form-select" aria-label="Default select example" name="angkatan">
+                                    <option selected>Pilih Jurusan</option>
+                                    <?php foreach($dataJurusan as $data2) : ?>
+                                        <option value="<?= $data2['nama'] ?>"><?= $data2['kode_jurusan'] ?> - <?= $data2['nama'] ?></option>
+                                    <?php endforeach ; ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kelas" class="form-label text-white">Angkatan :</label>
+                                <select class="form-select" aria-label="Default select example" name="angkatan">
+                                    <option selected>Pilih Angkatan</option>
+                                    <?php foreach($dataAngkatan as $data2) : ?>
+                                        <option value="<?= $data2['angkatan'] ?>"><?= $data2['angkatan'] ?></option>
+                                    <?php endforeach ; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="text-end">
-                            <!-- <button class="btn btn-warning">
+                            <button class="btn btn-warning">
                                 <img src="../icon/cancel.png" width="20rem" alt="">
                                 Batal
-                            </button> -->
-                            <button class="btn btn-info" type="submit">
+                            </button>
+                            <button class="btn btn-info">
                                 <img src="../icon/add.png" width="20rem" alt="">
                                 Tambah
                             </button>
