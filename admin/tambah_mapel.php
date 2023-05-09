@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Add Mapel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style_beranda.css">
     <style>
         body{
-            margin: 0;
-            padding: 0;
+            background: url(../../bg/bg6.jpg);
+            background-size: cover;
+            background-attachment: fixed;
         }
     </style>
   </head>
@@ -46,9 +46,9 @@
                 </div>
             </div>
         </nav>
-        <ul class="nav justify-content-center bg-light">
+        <ul class="nav justify-content-center bg-light" style="margin-bottom: 45px;">
             <li class="nav-item">
-                <a class="nav-link active fw-bold text-dark text-decoration-underline" aria-current="page" href="beranda.php">
+                <a class="nav-link active fw-bold text-dark" aria-current="page" href="beranda.php">
                     <img src="../icon/lease.png" class="ms-2" width="40rem" alt=""><br>
                     Beranda
                 </a>
@@ -56,11 +56,11 @@
             <li class="nav-item dropdown">
                 <a class="nav-link fw-bold text-dark" href="tambah_guru.php">
                     <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
-                    Tambah Guru
+                    Tambah Akun
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="tambah_mapel.php">
+                <a class="nav-link fw-bold text-dark text-decoration-underline" href="tambah_mapel.php">
                     <img src="../icon/lesson.png" class="ms-4" width="40rem" alt=""><br>
                     Tambah Mapel
                 </a>
@@ -82,37 +82,34 @@
                 </ul>
             </li>
         </ul>
-        <div class="container-fluid">
-            <div class="dropdown-center dropdown text-center">
-                <button class="btn btn-warning text-white fw-bold dropdown-toggle w-50 rounded-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Pilih
-                </button>
-                <ul class="dropdown-menu w-50">
-                    <li>
-                        <a href="daftar_guru.php" class="text-decoration-none">
-                            <button class="dropdown-item">
-                                Daftar Guru
+        <div class="container-fluid mt-4">
+            <div class="p-3">
+                <div class="bg-secondary p-3 mt-3 w-50 m-auto" style="box-shadow: 10px 10px 0px rgb(232, 232, 232);">
+                    <form action="../aksi.php?paramTable=mapel&paramAksi=tambah&paramHalaman=daftar_mapel.php" method="post">
+                        <div class="mb-3">
+                            <h3 class="text-white">Tambah Mapel</h3>
+                        </div>
+                        <div class="">
+                            <div class="mb-3">
+                                <label for="mapel" class="form-label text-white">Mapel :</label>
+                                <input type="text" name="mapel" class="form-control" id="mapel">
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <!-- <button class="btn btn-warning">
+                                <img src="../icon/cancel.png" width="20rem" alt="">
+                                Batal
+                            </button> -->
+                            <button class="btn btn-info" type="submit">
+                                <img src="../icon/add.png" width="20rem" alt="">
+                                Tambah
                             </button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="daftar_mapel.php" class="text-decoration-none">
-                            <button class="dropdown-item">
-                                Daftar Mapel
-                            </button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="daftar_jurusan.php" class="text-decoration-none">
-                            <button class="dropdown-item">
-                                Daftar Jurusan
-                            </button>
-                        </a>
-                    </li>
-                </ul>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="bg-dark fixed-bottom mb-0 p-1 pt-2 w-100" id="footer" style="margin-bottom: -2rem;">
+        <div class="bg-dark mt-5 p-1 pt-2 w-100" id="footer" style="margin-bottom: -2rem;">
             <footer class="main-footer mt-3" style="padding-top: 10px;">
                 <div class="text-center">
                     <a href="http://smkn1-cirebon.sch.id" class="txt2 hov1 text-decoration-none text-white nav-link disabled" target="_blank">

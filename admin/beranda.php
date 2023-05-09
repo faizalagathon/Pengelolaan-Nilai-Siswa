@@ -75,32 +75,38 @@ if (!isset($_SESSION["login_admin"])) {
   <!-- SECTION MENU -->
   <ul class="nav justify-content-center bg-light">
     <li class="nav-item">
-      <a class="nav-link active fw-bold text-dark text-decoration-underline" aria-current="page" href="beranda.html">
+      <a class="nav-link active fw-bold text-dark text-decoration-underline" aria-current="page" href="beranda.php">
         <img src="../icon/lease.png" class="ms-2" width="40rem" alt=""><br>
         Beranda
       </a>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
-        Tambah Guru
-      </a>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="tambah_guru_wali.html">Wali Kelas</a></li>
-        <li><a class="dropdown-item" href="tambah_guru_mapel.html">Guru Mapel</a></li>
-      </ul>
+        <a class="nav-link fw-bold text-dark" href="tambah_guru.php">
+            <img src="../icon/add-user.png" class="ms-4" width="40rem" alt=""><br>
+            Tambah Guru
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link fw-bold text-dark" href="tambah_mapel.html">
+      <a class="nav-link fw-bold text-dark" href="tambah_mapel.php">
         <img src="../icon/lesson.png" class="ms-4" width="40rem" alt=""><br>
         Tambah Mapel
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link fw-bold text-dark" href="tambah_jurusan.html">
+      <a class="nav-link fw-bold text-dark" href="tambah_jurusan.php">
         <img src="../icon/presentation.png" class="ms-5" width="40rem" alt=""><br>
         Tambah Jurusan
       </a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../icon/presentation.png" class="ms-5" width="40rem" alt=""><br>
+            Tambah Mengajar
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tambah_mengajar_nilai.php">Tambah Kelas</a></li>
+            <li class=""><a class="dropdown-item" href="tambah_mengajar_nilai_siswa.php" class="text-decoration-underline">Tambah Siswa</a></li>
+        </ul>
     </li>
   </ul>
   <!-- !SECTION AKHIR MENU -->
@@ -112,7 +118,7 @@ if (!isset($_SESSION["login_admin"])) {
           <img src="../icon/teacher3.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
             <h3>Daftar Guru</h3>
-            <a href="daftar_guru.html">
+            <a href="daftar_guru.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>
@@ -123,7 +129,7 @@ if (!isset($_SESSION["login_admin"])) {
           <img src="../icon/lesson2.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
             <h3>Daftar Mapel</h3>
-            <a href="daftar_mapel.html">
+            <a href="daftar_mapel.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>
@@ -134,7 +140,7 @@ if (!isset($_SESSION["login_admin"])) {
           <img src="../icon/approved.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
             <h3>Daftar Jurusan</h3>
-            <a href="daftar_jurusan.html">
+            <a href="daftar_jurusan.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>
