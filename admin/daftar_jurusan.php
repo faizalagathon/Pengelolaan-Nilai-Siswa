@@ -113,10 +113,11 @@ include '../aksi.php';
                     </div>
                     <div class="toast-body">
                     <?php switch($_GET['paramStatusAksi']) { 
-                        case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Guru <?php break ; ?>
-                        <?php case "berhasilTambah" :?> <strong class="me-auto">Berhasil</strong> Menambah Data Guru <?php break ; ?>
-                        <?php case "berhasilEdit" :?> <strong class="me-auto">Berhasil</strong> Mengubah Data Guru <?php break ; ?>
-                        <?php case "berhasilHapus" :?> <strong class="me-auto">Berhasil</strong> Menghapus Data Guru <?php break ; ?>
+                        case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Jurusan <?php break ; ?>
+                        <?php case "berhasilTambah" :?> <strong class="me-auto">Berhasil</strong> Menambah Data Jurusan <?php break ; ?>
+                        <?php case "berhasilEdit" :?> <strong class="me-auto">Berhasil</strong> Mengubah Data Jurusan <?php break ; ?>
+                        <?php case "berhasilHapus" :?> <strong class="me-auto">Berhasil</strong> Menghapus Data Jurusan <?php break ; ?>
+                        <?php case "gagalTambahJurusan" :?> <strong class="me-auto">Gagal </strong> Tambah Kelas, Jurusan Tersebut sudah terdaftar. Silahkan gunakan halaman <a href="tambah_jurusan_ada.php">Berikut</a> <?php break ; ?>
                         <?php default : ?> <strong class="me-auto">Gagal</strong> Tidak Melakukan Apapun <?php break ; ?>
                     <?php } ?>
                     </div>

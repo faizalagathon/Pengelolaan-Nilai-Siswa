@@ -174,38 +174,77 @@ if( isset($aksi) && $aksi == "tambah"){
     }
 
     if($table == "kelas"){
-        $jurusan = $_POST['jurusan'];
-        $angkatan = $_POST['angkatan'];
+        if($halamanUser == 'tambah_jurusan_ada.php'){
+            $singkatan = $_POST['jurusan'];
+            $angkatan = $_POST['angkatan'];
 
-        $awalKalimat = $jurusan;
-
-        $jurusan = preg_replace("/dan/", "", $jurusan);
-
-        for($i=0; $i<10; $i++){
-            if(strpos($jurusan, "$i")){
-                $jumlahJurusan = $i;
-                $jurusan = preg_replace("/$i/", "", $jurusan);
+            // CEK APAKAH DATA YANG DIKIRIMKAN NULL ATAU TIDAK
+            if($singkatan == 'none'){
+                header("Location: admin/tambah_jurusan_ada.php?paramStatusAksi=gagalTambahJurusan");
+                exit;
             }
+            if($angkatan == 'none'){
+                header("Location: admin/tambah_jurusan_ada.php?paramStatusAksi=gagalTambahAngkatan");
+                exit;
+            }
+            //!! CEK APAKAH DATA YANG DIKIRIMKAN NULL ATAU TIDAK
         }
-
-        if(!isset($jumlahJurusan)){
-            $jumlahJurusan = 1;
+        else{
+            $jurusan = $_POST['jurusan'];
+            $angkatan = $_POST['angkatan'];
+    
+            // CEK APAKAH DATA YANG DIKIRIMKAN NULL ATAU TIDAK
+            if($jurusan == 'none'){
+                header("Location: admin/tambah_jurusan_ada.php?paramStatusAksi=gagalTambahJurusan");
+                exit;
+            }
+            if($angkatan == 'none'){
+                header("Location: admin/tambah_jurusan_ada.php?paramStatusAksi=gagalTambahAngkatan");
+                exit;
+            }
+            //!! CEK APAKAH DATA YANG DIKIRIMKAN NULL ATAU TIDAK
+            
+            $awalKalimat = $jurusan;
+    
+            $jurusan = preg_replace("/dan/", "", $jurusan);
+    
+            for($i=0; $i<10; $i++){
+                if(strpos($jurusan, "$i")){
+                    $jumlahJurusan = $i;
+                    $jurusan = preg_replace("/$i/", "", $jurusan);
+                }
+            }
+    
+            if(!isset($jumlahJurusan)){
+                $jumlahJurusan = 1;
+            }
+    
+            $kumpulanKalimat = explode(' ', $jurusan);
+            $jumlahKalimat = count($kumpulanKalimat);
+    
+            for($j=0; $j<$jumlahKalimat ; $j++){
+                $kumpulanKalimat[$j] = substr( $kumpulanKalimat[$j], 0, 1 );
+            }
+    
+            $singkatan = implode("", $kumpulanKalimat);
+            $singkatan .= "-" . $jumlahJurusan;
+    
+            $singkatan = strtoupper($singkatan);
+            $awalKalimat = ucwords($awalKalimat);
+    
+            $awalKalimat = preg_replace("/$jumlahJurusan/", " $jumlahJurusan", $awalKalimat);
+    
+            // CEK APAKAH SUDAH ADA DATA JURUSAN NYA ATAU BELOM
+            $row = mysqli_query($link, "SELECT * FROM jurusan WHERE kode_jurusan='$singkatan'");
+            if(mysqli_num_rows($row) > 0){
+                header("Location: admin/$halamanAsal?paramStatusAksi=gagalTambahJurusan");
+                exit;
+            }
+            //!! CEK APAKAH SUDAH ADA DATA JURUSAN NYA ATAU BELOM
+            
+            $qry = "INSERT INTO jurusan VALUES ('$singkatan', '$awalKalimat')";
+            mysqli_query($link, $qry);
         }
-
-        $kumpulanKalimat = explode(' ', $jurusan);
-        $jumlahKalimat = count($kumpulanKalimat);
-
-        for($j=0; $j<$jumlahKalimat ; $j++){
-            $kumpulanKalimat[$j] = substr( $kumpulanKalimat[$j], 0, 1 );
-        }
-
-        $singkatan = implode("", $kumpulanKalimat);
-        $singkatan .= "-" . $jumlahJurusan;
-
-        $singkatan = strtoupper($singkatan);
-        
-        $qry = "INSERT INTO jurusan VALUES ('$singkatan', '$awalKalimat')";
-        mysqli_query($link, $qry);
 
         $query = "INSERT INTO $table VALUES (NULL, '$angkatan', '$singkatan')";
     }

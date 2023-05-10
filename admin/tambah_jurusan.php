@@ -95,22 +95,45 @@ $dataAngkatan = query("SELECT * FROM angkatan");
                 </ul>
             </li>
         </ul>
+
+        <!-- SECTION INFO STATUS AKSI -->
+        <?php if(isset($_GET['paramStatusAksi'])) : ?>
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                    <img src="../icon/gear.png" class="rounded me-2" width="20" height="20" alt="...">
+                    <strong class="me-auto">System</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                    <?php switch($_GET['paramStatusAksi']) { 
+                        case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Guru <?php break ; ?>
+                        <?php case "gagalTambahAngkatan" :?> <strong class="me-auto">Gagal </strong> Tambah Kelas, Isi Terlebih Dahulu Angkatannya. <?php break ; ?>
+                        <?php default : ?> <strong class="me-auto">Gagal</strong> Tidak Melakukan Apapun <?php break ; ?>
+                    <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif ; ?>
+        <!-- !SECTION INFO STATUS AKSI -->
+
         <div class="container-fluid mt-4">
             <div class="p-3">
                 <div class="bg-secondary p-3 mt-3 w-50 m-auto" style="box-shadow: 10px 10px 0px rgb(232, 232, 232);">
-                    <form action="../aksi.php?paramTable=kelas&paramAksi=tambah&paramHalaman=daftar_jurusan.php" method="post">
+                    <form action="../aksi.php?paramTable=kelas&paramAksi=tambah&paramHalaman=daftar_jurusan.php&halamanUser=tambah_jurusan_ada.php" method="post">
                         <div class="mb-3">
                             <h3 class="text-white">Tambah Jurusan</h3>
                         </div>
                         <div class="">
                             <div class="mb-3">
                                 <label for="jurusan" class="form-label text-white">Jurusan :</label>
-                                <input type="text" name="jurusan" class="form-control" id="jurusan">
+                                <input type="text" name="jurusan" class="form-control" id="jurusan" required>
                             </div>
                             <div class="mb-3">
                                 <label for="kelas" class="form-label text-white">Angkatan :</label>
                                 <select class="form-select" aria-label="Default select example" name="angkatan">
-                                    <option selected>Pilih Angkatan</option>
+                                    <option value="none" selected>Pilih Angkatan</option>
                                     <?php foreach($dataAngkatan as $data2) : ?>
                                         <option value="<?= $data2['angkatan'] ?>"><?= $data2['angkatan'] ?></option>
                                     <?php endforeach ; ?>
@@ -145,6 +168,15 @@ $dataAngkatan = query("SELECT * FROM angkatan");
     </div>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
+    
+
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../assets/js/bootstrap.bundle.js"></script> -->
+    <!-- <script src="../assets/js/bootstrap.js"></script> -->
+    <script>
+        const toastLiveExample = document.getElementById('liveToast')
+        const toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    </script>
   </body>
 </html>
