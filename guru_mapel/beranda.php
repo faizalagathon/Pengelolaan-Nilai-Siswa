@@ -1,10 +1,10 @@
 <?php
 
+require "../crudNilai.php";
 if (!isset($_SESSION["login_mapel"])) {
   header("Location: login_mapel.php");
   exit;
 }
-require "../crudNilai.php";
 
 ?>
 <!doctype html>

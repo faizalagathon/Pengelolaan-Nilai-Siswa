@@ -1,5 +1,5 @@
 <?php
-require "../functions.php";
+require '../functions.php';
 if (!isset($_SESSION["login_mapel"])) {
   header("Location: login_mapel.php");
   exit;
@@ -23,7 +23,6 @@ if (!isset($_SESSION["login_mapel"])) {
   </style>
 </head>
 
-<?php include "../functions.php" ?>
 
 <body>
   <div class="">
@@ -122,7 +121,7 @@ if (!isset($_SESSION["login_mapel"])) {
           $i = 1;
           foreach (query("
             SELECT * FROM mapel INNER JOIN guru 
-            ON mapel.id = guru.id_mapel INNER JOIN mengajar
+            ON mapel.nama_m = guru.id_mapel INNER JOIN mengajar
             ON guru.id = mengajar.id_guru INNER JOIN siswa
             ON mengajar.id_siswa = siswa.id INNER JOIN angkatan
             ON siswa.id_angkatan = angkatan.id INNER JOIN jurusan

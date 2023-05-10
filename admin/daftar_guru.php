@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 
 $namaFiles = __FILE__;
@@ -31,7 +32,13 @@ include '../aksi.php';
     
   </head>
   <body>
-
+    
+<?php
+if (!isset($_SESSION["login_admin"])) {
+    header("Location: login_admin.php");
+    exit;
+}
+?>
     
     
     <div class="">
