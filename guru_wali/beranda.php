@@ -180,7 +180,7 @@ if (isset($_POST["submit"])) {
       <table class="table table-light table-striped mb-5 m-auto">
         <tr>
           <th colspan="9">
-            <a href="pdfSiswa.php">
+            <a href="pdfSiswa.php" target="_blank">
               <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
             </a>
           </th>
