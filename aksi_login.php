@@ -45,7 +45,7 @@ if($aksi=="login_admin"||"login_siswa"||"login_wali"||"login_mapel"){
             if($table=="siswa"){
                 if($row['nis']==$nis && $row ['password']==$password){
                     $_SESSION['login_siswa'] = true;
-                    $_SESSION['nis_siswa'] = $nis;
+                    $_SESSION['nis'] = $nis;
                     header("Location: siswa/beranda.php");
                     exit;
                 }

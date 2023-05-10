@@ -1,7 +1,4 @@
 <?php
-
-require 'functions.php';
-
 function tambahSiswa($data)
 {
   global $link;
@@ -37,7 +34,6 @@ function tambahSiswa($data)
   }
   //Akhir Acak Password
 
-
   $query = "INSERT INTO siswa
                 VALUES
             ('','$nis','$jk','$nama','$alamat','$passwordAcak','$angkatan','$jurusan')";
@@ -53,13 +49,14 @@ if (isset($_GET['paramAksi']) && $_GET['paramAksi'] == "acakPass") {
   $id = $_GET['id'];
   $jumlahPass = 7;
   $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_v3");
 
   for ($i = 0; $i < $jumlahPass; $i++) {
     $index = rand(0, strlen($characters) - 1);
     $passwordAcak .= $characters[$index];
   }
 
-  $query = "UPDATE siswa SET password='$passwordAcak' WHERE id='$id'";
+  $query = "UPDATE siswa SET password='$passwordAcak' WHERE nis='$id'";
   mysqli_query($link, $query);
 
   header("Location: beranda.php");

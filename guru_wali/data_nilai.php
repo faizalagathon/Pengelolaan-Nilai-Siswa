@@ -1,10 +1,12 @@
-<?php require '../crudNilai.php';
+<?php 
+include '../functions.php';
 
 if (!isset($_SESSION["login_wali"])) {
   header("Location: login_wali.php");
   exit;
 }
 
+require '../crudNilai.php';
 ?>
 
 <!doctype html>

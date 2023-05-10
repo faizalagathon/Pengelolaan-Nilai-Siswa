@@ -19,5 +19,7 @@ function query($sql)
   return $rows;
 }
 
+
+
 $daftarMapel = query("SELECT * FROM mapel");
 $daftarJurusan = query('SELECT * FROM jurusan');

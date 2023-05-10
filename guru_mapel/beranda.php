@@ -1,5 +1,7 @@
 <?php
 
+include '../functions.php';
+
 if (!isset($_SESSION["login_mapel"])) {
   header("Location: login_mapel.php");
   exit;
