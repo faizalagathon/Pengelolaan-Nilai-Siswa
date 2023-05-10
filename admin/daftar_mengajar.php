@@ -17,7 +17,7 @@ include '../aksi.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daftar guru</title>
+    <title>Daftar Mengajar</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/style_beranda.css">
@@ -117,10 +117,13 @@ include '../aksi.php';
                 </div>
                 <div class="toast-body">
                 <?php switch($_GET['paramStatusAksi']) { 
-                    case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Guru <?php break ; ?>
-                    <?php case "berhasilTambah" :?> <strong class="me-auto">Berhasil</strong> Menambah Data Guru <?php break ; ?>
-                    <?php case "berhasilEdit" :?> <strong class="me-auto">Berhasil</strong> Mengubah Data Guru <?php break ; ?>
-                    <?php case "berhasilHapus" :?> <strong class="me-auto">Berhasil</strong> Menghapus Data Guru <?php break ; ?>
+                    case "berhasilAcak" : ?> <strong class="me-auto">Berhasil</strong> Mengacak Password Mengajar <?php break ; ?>
+                    <?php case "berhasilTambah" :?> <strong class="me-auto">Berhasil</strong> Menambah Data Mengajar <?php break ; ?>
+                    <?php case "berhasilEdit" :?> <strong class="me-auto">Berhasil</strong> Mengubah Data Mengajar <?php break ; ?>
+                    <?php case "berhasilHapus" :?> <strong class="me-auto">Berhasil</strong> Menghapus Data Mengajar <?php break ; ?>
+                    <?php case "gagalEditMengajar" :?> <strong class="me-auto">Gagal</strong> Mengedit Data Mengajar, sudah terdapat guru yang mengajar pada kelas tersebut <?php break ; ?>
+                    <?php case "gagalEditMengajarWali" :?> <strong class="me-auto">Gagal</strong> Mengedit Data Mengajar, Guru tersebut bukan Wali Kelas <?php break ; ?>
+                    <?php case "gagalEditMengajarGuru" :?> <strong class="me-auto">Gagal</strong> Mengedit Data Mengajar, Guru tersebut bukan Guru Mapel <?php break ; ?>
                     <?php default : ?> <strong class="me-auto">Gagal</strong> Tidak Melakukan Apapun <?php break ; ?>
                 <?php } ?>
                 </div>
@@ -168,7 +171,7 @@ include '../aksi.php';
             
             <div class="bg-success rounded-4 p-4 mt-3">
 
-                <form action="../aksi.php?paramAksi=cari&paramTable=guru&paramHalaman=daftar_guru.php" method="post">
+                <form action="../aksi.php?paramAksi=cari&paramTable=mengajar&paramHalaman=daftar_mengajar.php" method="post">
                     <div class="input-group w-25 ms-auto">
                         <input type="text" class="form-control rounded-pill rounded-end" name="keyword">
                         <button class="btn btn-primary rounded-pill rounded-start">Cari</button>
@@ -177,8 +180,8 @@ include '../aksi.php';
 
                 <!-- HEADER TABLE -->
                 <div class="mt-4 d-flex bg-dark p-3" style="box-shadow: -10px -10px 0px rgb(171, 171, 171);">
-                    <h3 class="text-white">Daftar Guru</h3>
-                    <div class="dropstart-center dropstart" style="margin-left: auto;">
+                    <h3 class="text-white">Daftar Mengajar</h3>
+                    <!-- <div class="dropstart-center dropstart" style="margin-left: auto;">
                         <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Status Guru
                         </button>
@@ -202,7 +205,7 @@ include '../aksi.php';
                                 </form>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- AKHIR HEADER TABLE -->
                 <!-- TABLE AKUN GURU -->
@@ -215,27 +218,27 @@ include '../aksi.php';
                         </tr>
                         <tr class="text-center">
                             <th>#</th>
-                            <th>NIP</th>
-                            <th>Nama</th>
-                            <th>JK</th>
-                            <th>Alamat</th>
-                            <th>Password</th>
-                            <th>Status</th>
+                            <th>Guru</th>
+                            <th>Mapel</th>
+                            <th>Kelas</th>
                             <th>Aksi</th>
                         </tr>
                         <?php $i=1; ?>
-                        <?php foreach($dataGuru as $data) : ?>
+                        <?php foreach($dataMengajar as $data) : ?>
                         <tr class="text-center">
                             <td><?= $i ?></td>
-                            <td><?= $data['nip'] ?></td>
                             <td><?= $data['nama'] ?></td>
-                            <td><?= $data['jk'] ?></td>
-                            <td><?= $data['alamat'] ?></td>
-                            <td><?= $data['password'] ?></td>
-                            <td><?= $data['is_walikelas'] == 1 ? 'Wali Kelas' : 'Guru Mapel' ?></td>
+                            <td><?= $data['nama_m'] == NULL ? 'Wali Kelas' : $data['nama_m']; ?></td>
+                            <td>
+                                <?php foreach($dataKelas as $data2) : ?>
+                                    <?php if($data2['id'] == $data['id_kelas']) : ?>
+                                        <?= $data2['angkatan'] . ' ' . $data2['kode_jurusan'] ?>
+                                    <?php endif ; ?>
+                                <?php endforeach ; ?>
+                            </td>
                             <td class="gap-2">
                                 <button class="bg-transparent border-0">
-                                    <a href="../aksi.php?id=<?= $data['id'] ?>&paramTable=guru&paramAksi=delete&paramHalaman=daftar_guru.php&halamanUser=<?= $halamanAktif ?>&keyword=<?= $keyword ?>&urut=<?= $urut ?>" onclick="return confirm('Yakin ingin menghapus guru?')">
+                                    <a href="../aksi.php?id=<?= $data['id'] ?>&paramTable=mengajar&paramAksi=delete&paramHalaman=daftar_mengajar.php&keyword=<?= $keyword ?>&urut=<?= $urut ?>" onclick="return confirm('Yakin ingin menghapus guru?')">
                                         <img src="../icon/delete1.png" width="30rem" alt="hapus">
                                     </a>
                                 </button>
@@ -252,53 +255,39 @@ include '../aksi.php';
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body bg-secondary">
-                                            <form action="../aksi.php?id=<?= $data['id'] ?>&paramTable=guru&paramAksi=edit&paramHalaman=daftar_guru.php&halamanUser=<?= $halamanAktif ?>&keyword=<?= $keyword ?>&urut=<?= $urut ?>" method="post">
+                                            <form action="../aksi.php?id=<?= $data['id'] ?>&paramTable=mengajar&paramAksi=edit&paramHalaman=daftar_mengajar.php&keyword=<?= $keyword ?>&urut=<?= $urut ?>" method="post">
                                                 <div class="row">
+                                                    <input type="text" name="id_guru_lama" value="<?= $data['id_guru'] ?>" hidden>
+                                                    <input type="text" name="nama_m_lama" value="<?= $data['nama_m'] ?>" hidden>
+                                                    <input type="text" name="id_kelas_lama" value="<?= $data['id_kelas'] ?>" hidden>
                                                     <div class="mb-3">
-                                                        <label for="nip" class="form-label text-white d-flex">NIP :</label>
-                                                        <input type="text" name="nip" class="form-control" id="nip" value="<?= $data['nip'] ?>">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="nama" class="form-label text-white d-flex">Nama :</label>
-                                                        <input type="text" class="form-control" id="nama" value="<?= $data['nama'] ?>" name="nama">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="jk" class="form-label text-white d-flex">Jenis Kelamin :</label>
-                                                        <select class="form-select w-25" aria-label="Default select example" name="jk" id="jk">
-                                                                <option selected value="<?= $data['jk'] ?>"><?= $data['jk'] ?></option>
-                                                            <?php if($data['jk'] === 'L') : ?>
-                                                                <option value="P">P</option> 
-                                                            <?php else : ?>
-                                                                <option value="L">L</option>
-                                                            <?php endif ; ?>
+                                                        <label for="id_guru" class="form-label text-white d-flex">Guru :</label>
+                                                        <select class="form-select form-select-md" name="id_guru" id="id_guru">
+                                                            <?php foreach($dataGuru as $data2) : ?>
+                                                                <option value="<?= $data2['id'] ?>" <?= $data2['id'] == $data['id_guru'] ? 'selected' : '' ; ?>><?= $data2['nama'] ?> - <?= $data2['is_walikelas'] == 1 ? 'Wali Kelas' : 'Guru Mapel'?></option>
+                                                            <?php endforeach ; ?>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="alamat" class="form-label text-white d-flex">Alamat :</label>
-                                                        <textarea name="alamat" class="form-control" id="alamat" cols="30" rows="3"><?= $data['alamat'] ?></textarea>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="is_walikelas" class="form-label text-white d-flex">Status Guru :</label>
-                                                        <select class="form-select w-25" aria-label="Default select example" name="is_walikelas" id="is_walikelas">
-                                                            <?php if($data['is_walikelas'] === '0') : ?>
-                                                                <option selected value="<?= $data['is_walikelas'] ?>">Guru Mapel</option>
-                                                            <?php else : ?>
-                                                                <option selected value="<?= $data['is_walikelas'] ?>">Wali Kelas</option>
-                                                            <?php endif ; ?>
-
-                                                            <?php if($data['is_walikelas'] === '0') : ?>
-                                                                <option value="1">Wali Kelas</option>
-                                                            <?php else : ?>
-                                                                <option value="0">Guru Mapel</option>
+                                                        <label for="nama_m" class="form-label text-white d-flex">Mapel :</label>
+                                                        <select class="form-select form-select-md" name="nama_m" id="nama_m">
+                                                            <?php if($data['nama_m'] == NULL) : ?>
+                                                                <option value="NULL" selected>Wali Kelas - tidak dapat diubah </option>     
+                                                            <?php else : ?>                                               
+                                                                <?php foreach($dataMapel as $data2) : ?>
+                                                                    <?php if($data2['nama_m'] != 'param') : ?>
+                                                                        <option value="<?= $data2['nama_m'] ?>" <?= $data2['nama_m'] == $data['nama_m'] ? 'selected' : '' ; ?>><?= $data2['nama_m'] ?></option>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach ; ?>
                                                             <?php endif ; ?>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="text-end">
-                                                    <button class="btn btn-warning">
+                                                    <!-- <button class="btn btn-warning">
                                                         <img src="../icon/cancel.png" width="20rem" alt="">
                                                         Batal
-                                                    </button>
+                                                    </button> -->
                                                     <button class="btn btn-info" type="submit">
                                                         <img src="../icon/save.png" width="20rem" alt="">
                                                         Save
@@ -310,12 +299,6 @@ include '../aksi.php';
                                 </div>
                             </div>
                             <!-- AKHIR POP UP EDIT -->
-                                
-                                <button class="bg-transparent border-0">
-                                    <a href="../aksi.php?id=<?= $data['id'] ?>&paramTable=guru&paramAksi=acakPass&paramHalaman=daftar_guru.php&halamanUser=<?= $halamanAktif ?>&keyword=<?= $keyword ?>&urut=<?= $urut ?>&halamanUser=<?= $halamanAktif ?>" onclick="return confirm('Yakin ingin merubah Password guru?')">
-                                        <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
-                                    </a>
-                                </button>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -332,7 +315,7 @@ include '../aksi.php';
                     
 
                 <!-- SECTION pagination peminjaman-->
-                    <div aria-label="Page navigation example" > 
+                    <!-- <div aria-label="Page navigation example" > 
                         <ul class="pagination">
                             <?php if($jumlahHalaman != 1 || isset($_GET['keyword']) > 1) : ?>
                                 <?php if ( $halamanAktif > 1 ) : ?>
@@ -352,7 +335,7 @@ include '../aksi.php';
                                 <?php endif ; ?>
                             <?php endif ; ?>
                         </ul>
-                    </div>
+                    </div> -->
                 <!-- !SECTION pagination peminjaman-->
                     
                 </div>

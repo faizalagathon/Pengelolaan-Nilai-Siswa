@@ -25,7 +25,7 @@ if (!isset($_SESSION["login_admin"])) {
       backdrop-filter: blur(15px);
     }
 
-    .card img {
+    /* .card img {
       transition: ease-in-out;
       transition: 5s;
     }
@@ -33,7 +33,7 @@ if (!isset($_SESSION["login_admin"])) {
     .card img:hover {
       transform: rotatey(360deg);
       transition: 5s;
-    }
+    } */
   </style>
 </head>
 
@@ -116,35 +116,46 @@ if (!isset($_SESSION["login_admin"])) {
   <!-- !SECTION AKHIR MENU -->
   <!-- SECTION CARD -->
   <div class="container-fluid">
-    <div class="row container-fluid mt-3">
-      <div class="col">
-        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 18rem;">
-          <img src="../icon/teacher3.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
+    <div class="d-flex flex-wrap gap-5   justify-content-center mt-3">
+      <div class="">
+        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 13rem;">
+          <img src="../icon/teaching.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
-            <h3>Daftar Guru</h3>
+            <h5>Daftar Guru</h5>
             <a href="daftar_guru.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 18rem;">
-          <img src="../icon/lesson2.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
+      <div class="">
+        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 13rem;">
+          <img src="../icon/blackboard.png" class="card-img-top bg-light rounded-4 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
-            <h3>Daftar Mapel</h3>
+            <h5>Daftar Mapel</h5>
             <a href="daftar_mapel.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 18rem;">
-          <img src="../icon/approved.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
+      <div class="">
+        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 13rem;">
+          <img src="../icon/jurusan.png" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
           <div class="card-body text-center rounded-4 rounded-top text-white">
-            <h3>Daftar Jurusan</h3>
+            <h5>Daftar Jurusan</h5>
             <a href="daftar_jurusan.php">
+              <button class="btn btn-primary w-100">Lihat</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="card m-auto bg-transparent border-2 border-white rounded rounded-4" style="width: 13rem;">
+          <img src="../icon/mengajar.png" height="200" class="card-img-top bg-light rounded-3 rounded-bottom" alt="...">
+          <div class="card-body text-center rounded-4 rounded-top text-white">
+            <h5>Daftar Mengajar</h5>
+            <a href="daftar_mengajar.php">
               <button class="btn btn-primary w-100">Lihat</button>
             </a>
           </div>

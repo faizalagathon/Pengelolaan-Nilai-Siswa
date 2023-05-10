@@ -42,13 +42,54 @@ if(isset($_GET['paramAksi'])){
 
 // SECTION HAPUS
 if( isset($aksi) && $aksi == "delete" ){
-
-    $qry = "DESC $table";
-    $dataTable = mysqli_query($link, $qry);
-    $primaryTable = mysqli_fetch_array($dataTable);
-    $query = "DELETE FROM $table WHERE $primaryTable[0] = '$id'";
     
-    mysqli_query($link, $query);
+    if($table == 'mengajar'){
+        $dataMengajar = query("SELECT * FROM mengajar WHERE id = '$id'");
+        $nis = $dataMengajar[0]['nis'];
+        $nama_m = $dataMengajar[0]['nama_m'];
+        $id_guru = $dataMengajar[0]['id_guru'];
+        
+        $siswa = query("SELECT * FROM siswa WHERE nis='$nis'");
+        $id_kelas = $siswa[0]['id_kelas'];
+
+        // $dataSiswa = query("SELECT * FROM siswa WHERE id_kelas=$id_kelas");
+        $result = mysqli_query($link, "SELECT * FROM siswa WHERE id_kelas=$id_kelas");
+        $dataSiswa = [];
+        foreach( $result as $row ){
+            $dataSiswa[] = $row;
+        }
+
+        $jumlahData = count($dataSiswa);
+        
+        for($i=0; $i<$jumlahData; $i++){
+            $nis2 = $dataSiswa[$i]['nis'];
+
+            if($nama_m != NULL){
+                $dataMengajar = query("SELECT * FROM mengajar WHERE nis=$nis2 AND nama_m='$nama_m' AND id_guru=$id_guru");
+                $id_mengajar = $dataMengajar[0]['id'];
+                mysqli_query($link, "DELETE FROM nilai WHERE id_mengajar=$id_mengajar");
+            }
+            else{
+                $dataMengajar = query("SELECT * FROM mengajar WHERE nis=$nis2 AND nama_m IS NULL AND id_guru=$id_guru");
+                $id_mengajar = $dataMengajar[0]['id'];
+            }
+            
+
+
+            mysqli_query($link, "DELETE FROM $table WHERE id=$id_mengajar");
+
+        }
+        
+    }
+    else{
+        $qry = "DESC $table";
+        $dataTable = mysqli_query($link, $qry);
+        $primaryTable = mysqli_fetch_array($dataTable);
+        $query = "DELETE FROM $table WHERE $primaryTable[0] = '$id'";
+    }
+    if(isset($query)){
+        mysqli_query($link, $query);
+    }
 
     header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&paramStatusAksi=berhasilHapus");
 
@@ -100,7 +141,74 @@ if( isset($aksi) && $aksi == "edit" ){
         }
     // !SECTION DAFTAR JURUSAN
 
-    mysqli_query($link, $query);
+    // SECTION DAFTAR MENGAJAR
+        if( $table == "mengajar" ){
+            $id_kelas_lama = $_POST['id_kelas_lama'];
+            $id_guru = $_POST['id_guru'];
+            $id_guru_lama = $_POST['id_guru_lama'];
+            $nama_m = $_POST['nama_m'];
+            $nama_m_lama = $_POST['nama_m_lama'];
+
+            // MENGECEK GURU WALI KELAS ATAU BUKAN
+            $dataWali = query("SELECT * FROM guru WHERE id = '$id_guru'");
+            $is_walikelas = $dataWali[0]['is_walikelas'];
+
+            if($nama_m_lama == $nama_m){
+                $mapelSama = true;
+            }
+            
+            $querySiswaLama = mysqli_query($link, "SELECT * FROM siswa WHERE id_kelas='$id_kelas_lama'");
+            $dataSiswa = [];
+            foreach( $querySiswaLama as $row ){
+                $dataSiswa[] = $row;
+            };
+
+            $jumlahDataSiswa = count($dataSiswa);
+            
+
+            for($i=0; $i<$jumlahDataSiswa; $i++){
+                $nis = $dataSiswa[$i]['nis'];
+
+                if(!$mapelSama){
+                    $row = mysqli_query($link, "SELECT * FROM $table 
+                                    WHERE nama_m='$nama_m' AND nis=$nis");
+                    
+                    if(mysqli_num_rows($row) > 0){
+                        header("Location: admin/$halamanAsal?paramStatusAksi=gagalEditMengajar");
+                        exit;
+                    }
+                }
+
+                if($nama_m == 'NULL'){
+                    if($is_walikelas != 1){
+                        header("Location: admin/$halamanAsal?paramStatusAksi=gagalEditMengajarWali");
+                        exit;
+                    }
+                    
+                    $queryMengajar = "UPDATE $table SET id_guru='$id_guru', nama_m=NULL
+                                        WHERE id_guru='$id_guru_lama' AND nama_m IS NULL AND nis=$nis";
+                }
+                else{
+                    if($is_walikelas == 1){
+                        header("Location: admin/$halamanAsal?paramStatusAksi=gagalEditMengajarGuru");
+                        exit;
+                    }
+
+                    $queryMengajar = "UPDATE $table SET id_guru='$id_guru', nama_m='$nama_m' 
+                                        WHERE id_guru='$id_guru_lama' AND nama_m='$nama_m_lama' AND nis=$nis";
+                }
+
+            mysqli_query($link, $queryMengajar);
+            }
+
+            // $query = "SELECT * FROM mengajar";
+            
+        }
+    // !SECTION DAFTAR MENGAJAR
+
+    if(isset($query)){
+        mysqli_query($link, $query);
+    }
 
     header("Location: admin/$halamanAsal?halamanUser=$halamanUser&keyword=$keyword&urut=$urut&paramStatusAksi=berhasilEdit");
 
@@ -477,5 +585,79 @@ if( isset($halaman) && $halaman == "daftar_jurusan.php"){
 }
 
 // !SECTION HALAMAN DAFTAR JURUSAN
+
+// SECTION HALAMAN DAFTAR GURU
+
+if( isset($halaman) && $halaman == "daftar_mengajar.php"){
+    
+    // SECTION DEFAULT
+    if(!isset($_GET['urut']) || (isset($_GET['urut']) && $_GET['urut'] == "default")){
+        $query = "SELECT MIN(mengajar.id) as id, MIN(mengajar.id_guru) as id_guru, guru.nama, mengajar.nama_m, siswa.id_kelas FROM mengajar 
+                    INNER JOIN guru ON guru.id=mengajar.id_guru 
+                    INNER JOIN siswa ON siswa.nis=mengajar.nis 
+                    GROUP BY guru.nama, mengajar.nama_m, siswa.id_kelas";
+    }
+    if(isset($_GET['keyword'])){
+        $keyword = $_GET['keyword'];
+    }
+    else{
+        $keyword = "none";
+    }
+    if(isset($_GET['urut'])){
+        $urut = $_GET['urut'];
+    }
+    else{
+        $urut = "default";
+    }
+// !SECTION DEFAULT
+
+// SECTION URUT STATUS
+
+    // if(isset($_GET['urut']) && $_GET['urut'] == "status"){
+            
+    //     $keyword = $_GET['keyword'];
+    //     $query = "SELECT * FROM guru WHERE 
+    //                 is_walikelas LIKE '%$keyword%' ";
+    // }
+
+// !SECTION URUT STATUS
+
+// SECTION CARI
+    if(isset($_GET['urut']) && $_GET['urut'] == "cari"){
+        
+        $keyword = $_GET['keyword'];
+        $query = " SELECT MIN(mengajar.id) as id, MIN(mengajar.id_guru) as id_guru, guru.nama, mengajar.nama_m, siswa.id_kelas FROM mengajar 
+                        INNER JOIN guru ON guru.id=mengajar.id_guru 
+                        INNER JOIN siswa ON siswa.nis=mengajar.nis 
+                        WHERE
+                        guru.nama LIKE '%$keyword%' OR 
+                        mengajar.nama_m LIKE '%$keyword%' OR 
+                        GROUP BY guru.nama, mengajar.nama_m, siswa.id_kelas";
+    }
+// !SECTION CARI
+
+    // SECTION pagination Peminjaman
+    
+    // $dataPerhalaman = 4;
+    // $jumlahData =  count(query("$query"));
+    
+    // $jumlahHalaman = ceil($jumlahData / $dataPerhalaman);
+    
+    // $halamanAktif = isset( $_GET['halamanUser']) ? $_GET['halamanUser'] : 1;
+    
+    // $awalData = ($dataPerhalaman * $halamanAktif) - $dataPerhalaman;
+    
+    // !SECTION pagination Peminjaman
+
+    // $query .= "LIMIT $awalData, $dataPerhalaman";
+
+    $dataMengajar = query($query);
+    $dataKelas = query("SELECT * FROM kelas");
+    $dataGuru = query("SELECT * FROM guru");
+    $dataMapel = query("SELECT * FROM mapel");
+    
+}
+
+// !SECTION HALAMAN DAFTAR GURU
 
 ?>
