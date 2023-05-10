@@ -210,7 +210,9 @@ if (!isset($_SESSION["login_admin"])) {
                     <table class="table table-light table-striped mb-5 m-auto">
                         <tr>
                             <th colspan="8">
+                              <a href="pdfGuru.php" target="_blank">
                                 <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
+                              </a>
                             </th>
                         </tr>
                         <tr class="text-center">
