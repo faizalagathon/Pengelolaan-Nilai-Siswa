@@ -1,9 +1,10 @@
 <?php
-require "../crudSiswa.php";
+include '../functions.php';
 if (!isset($_SESSION["login_wali"])) {
   header("Location: login_wali.php");
   exit;
 }
+include "crudSiswa.php";
 $siswa = query("SELECT 
 *, 
 siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
@@ -180,7 +181,7 @@ if (isset($_POST["submit"])) {
       <table class="table table-light table-striped mb-5 m-auto">
         <tr>
           <th colspan="9">
-            <a href="pdfSiswa.php">
+            <a href="pdfSiswa.php" target="_blank">
               <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
             </a>
           </th>
@@ -216,7 +217,7 @@ if (isset($_POST["submit"])) {
                 <img src="../icon/edit1.png" width="30rem" alt="edit">
               </button>
               <button class="bg-transparent border-0">
-                <a href="functions.php?id=<?=$row['nis']?>&paramAksi=acakPass" onclick="return confirm('Yakin ingin merubah Password siswa?')">
+                <a href="crudSiswa.php?id=<?=$row['nis']?>&paramAksi=acakPass" onclick="return confirm('Yakin ingin merubah Password siswa?')">
                   <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
                 </a>
               </button>

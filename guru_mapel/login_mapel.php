@@ -1,7 +1,5 @@
 <?php
 require '../functions.php';
-
-
 ?>
 
 
@@ -17,7 +15,7 @@ require '../functions.php';
     <link rel="stylesheet" href="style/style_login.css">
   </head>
   <body>
-    <form action="../aksi_login.php?ParamAksi=login&ParamTable=guru&ParamCek=cekpass&ParamError=login_mapel" method="post" class="m-auto bg-dark mb-1 mt-3 p-4 rounded-5 border">
+    <form action="../aksi_login.php?ParamAksi=login&ParamTable=guru&ParamCek=cekpass&ParamError=login_mapel&ParamHalaman=login_mapel" method="post" class="m-auto bg-dark mb-1 mt-3 p-4 rounded-5 border">
         <div class="d-flex justify-content-center m-0">
           <img src="../icon/SMKN-1-Cirebon.png" class="bg-white p-1 rounded-4 w-25" alt="">
         </div>

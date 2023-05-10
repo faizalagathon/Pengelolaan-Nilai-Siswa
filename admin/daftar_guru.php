@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 
 $namaFiles = __FILE__;
@@ -31,7 +32,13 @@ include '../aksi.php';
     
   </head>
   <body>
-
+    
+<?php
+if (!isset($_SESSION["login_admin"])) {
+    header("Location: login_admin.php");
+    exit;
+}
+?>
     
     
     <div class="">
@@ -210,7 +217,9 @@ include '../aksi.php';
                     <table class="table table-light table-striped mb-5 m-auto">
                         <tr>
                             <th colspan="8">
+                              <a href="pdfGuru.php" target="_blank">
                                 <button class="btn btn-info w-100 text-white fw-bold">Export to PDF</button>
+                              </a>
                             </th>
                         </tr>
                         <tr class="text-center">
