@@ -1,6 +1,12 @@
 <?php
 
-if (isset($_SESSION['nip']) && (array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_mapel' || array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_wali')) {
+if (
+  isset($_SESSION['nip']) && 
+  (
+    array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_mapel' || 
+    array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_wali'
+  )
+  ) {
   $idGuru = query("SELECT id FROM guru WHERE nip = $_SESSION[nip]")[0]['id'];
 
   // SECTION HAPUS DAN EDIT NILAI
@@ -143,6 +149,60 @@ if (isset($_SESSION['nip']) && (array_slice(explode('/', $_SERVER['REQUEST_URI']
     }
   }
   // !SECTION PENGKATEGORIAN TANPA PENCARIAN 
+
+  // SECTION SEMESTER TANPA PENCARIAN & KATEGORI
+  if (
+    !isset($_GET['angkatan']) &&
+    !isset($_GET['jurusan']) &&
+    isset($_GET['semester']) &&
+    !isset($_GET['cariNilai'])
+  ) {
+    if ($_GET['semester'] == '1') {
+      $bulanPertama = '07';
+      $bulanAkhir = '12';
+      $tahunSemester1 = explode('-', $tahunAjaran)[0];
+      $semester1Awal = $tahunSemester1 . '-' . $bulanPertama . '-01';
+      $semester1Akhir = $tahunSemester1 . '-' . $bulanAkhir . '-30';
+      $sqlReadNilai = "SELECT *,
+      siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+      jurusan.nama AS nama_j,
+      guru.nama AS nama_g, guru.alamat AS alamat_g,
+      nilai.id AS id_nilai
+      FROM siswa 
+      INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+      INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+      INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+      INNER JOIN mengajar ON siswa.nis = mengajar.nis
+      INNER JOIN guru ON mengajar.id_guru = guru.id
+      INNER JOIN nilai ON mengajar.id = nilai.id_mengajar
+      WHERE 
+      mengajar.id_guru = $idGuru && 
+      nilai.tanggal BETWEEN '$semester1Awal' AND '$semester1Akhir'";
+    }
+    if ($_GET['semester'] == '2') {
+      $tahunSemester2 = explode('-', $tahunAjaran)[1];
+      $bulanPertama = '01';
+      $bulanAkhir = '06';
+      $semester2Awal = $tahunSemester2 . '-' . $bulanPertama . '-01';
+      $semester2Akhir = $tahunSemester2 . '-' . $bulanAkhir . '-30';
+      $sqlReadNilai = "SELECT *,
+      siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+      jurusan.nama AS nama_j,
+      guru.nama AS nama_g, guru.alamat AS alamat_g,
+      nilai.id AS id_nilai
+      FROM siswa 
+      INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+      INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+      INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+      INNER JOIN mengajar ON siswa.nis = mengajar.nis
+      INNER JOIN guru ON mengajar.id_guru = guru.id
+      INNER JOIN nilai ON mengajar.id = nilai.id_mengajar
+      WHERE 
+      mengajar.id_guru = $idGuru && 
+      nilai.tanggal BETWEEN '$semester2Awal' AND '$semester2Akhir'";
+    }
+  }
+  // !SECTION SEMESTER TANPA PENCARIAN & KATEGORI 
 
   // SECTION PENGKATEGORIAN DENGAN PENCARIAN
   if (
@@ -293,7 +353,8 @@ if (isset($_SESSION['nip']) && (array_slice(explode('/', $_SERVER['REQUEST_URI']
   if (
     !isset($_GET['angkatan']) &&
     !isset($_GET['jurusan']) &&
-    isset($_GET['semester'])
+    isset($_GET['semester']) &&
+    isset($_GET['asc'])
   ) {
     if ($_GET['semester'] == '1') {
       $bulanPertama = '07';
@@ -493,7 +554,7 @@ if (isset($_SESSION['nis']) && array_slice(explode('/', $_SERVER['REQUEST_URI'])
       INNER JOIN guru ON mengajar.id_guru = guru.id
       INNER JOIN nilai ON mengajar.id = nilai.id_mengajar
       WHERE mengajar.nis = $nis AND
-  nilai.tanggal BETWEEN '$semester1Awal' AND '$semester1Akhir'";
+      nilai.tanggal BETWEEN '$semester1Awal' AND '$semester1Akhir'";
     }
     if ($_GET['semester'] == '2') {
       $tahunSemester2 = explode('-', $tahunAjaran)[1];
@@ -509,7 +570,7 @@ if (isset($_SESSION['nis']) && array_slice(explode('/', $_SERVER['REQUEST_URI'])
       INNER JOIN guru ON mengajar.id_guru = guru.id
       INNER JOIN nilai ON mengajar.id = nilai.id_mengajar
       WHERE mengajar.nis = $nis AND
-  nilai.tanggal BETWEEN '$semester2Awal' AND '$semester2Akhir'";
+      nilai.tanggal BETWEEN '$semester2Awal' AND '$semester2Akhir'";
     }
   }
   // !SECTION AKSES SISWA

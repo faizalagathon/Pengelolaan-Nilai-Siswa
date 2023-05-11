@@ -173,19 +173,20 @@ require '../crudNilai.php';
               <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Semester :
               </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <form action="" method="get"></form>
-                  <button class="dropdown-item">
-                    Semester 1
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item">
-                    Semester 2
-                  </button>
-                </li>
-              </ul>
+              <form action="" method="get">
+                <ul class="dropdown-menu">
+                  <li>
+                    <button type="submit" class="dropdown-item" name="semester" value="1">
+                      Semester 1
+                    </button>
+                  </li>
+                  <li>
+                    <button type="submit" class="dropdown-item" name="semester" value="2">
+                      Semester 2
+                    </button>
+                  </li>
+                </ul>
+              </form>
             </div>
           </div>
           <?php $i = 1 ?>
