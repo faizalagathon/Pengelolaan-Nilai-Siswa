@@ -202,7 +202,7 @@ if (isset($_POST["submit"])) {
             <td><?= $i++; ?></td>
             <td><?= $row["nis"]; ?></td>
             <td><?= $row["nama_s"]; ?></td>
-            <td><?= $row["jk"]; ?></td>
+            <td><?= $row["jk_s"]; ?></td>
             <td><?= $row["alamat_s"]; ?></td>
             <td><?= $row["angkatan"]; ?></td>
             <td><?= $row["kode_jurusan"]; ?></td>
