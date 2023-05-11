@@ -240,7 +240,7 @@ if (isset($_GET['fEdit'])) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body bg-dark">
-                    <form action="../crudNilai.php?hapusNilai" method="POST">
+                    <form action="" method="GET">
                       <div class="row">
                         <div class="col">
                           <div class="mb-3">
@@ -260,6 +260,7 @@ if (isset($_GET['fEdit'])) {
                         </div>
                       </div>
                       <input type="hidden" name="idNilai" value="<?= $siswa["id_nilai"] ?>">
+                      <input type="hidden" name="hapusNilai">
                       <div class="text-end mt-3">
                         <button type="reset" class="btn btn-danger py-1 px-4 pt-0">
                           <img src="../icon/multiply.png" width="20rem" alt="">

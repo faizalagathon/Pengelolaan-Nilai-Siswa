@@ -24,9 +24,9 @@ if (
     $queryHapusNilai = mysqli_query($link, $sqlHapusNilai);
 
     if (mysqli_affected_rows($link) === 1) {
-      header("Location: guru_mapel/beranda.php?tHapus");
+      header("Location: beranda.php?tHapus");
     } else {
-      header("Location: guru_mapel/beranda.php?fHapus");
+      header("Location: beranda.php?fHapus");
     }
   }
   if (isset($_GET["editNilai"])) {
