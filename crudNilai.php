@@ -1,12 +1,13 @@
 <?php
 
 if (
-  isset($_SESSION['nip']) && 
-  (
-    array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_mapel' || 
-    array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_wali'
+  isset($_SESSION['nip']) &&
+  (array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_mapel' ||
+    array_slice(explode('/', $_SERVER['REQUEST_URI']), -2, 1)[0] == 'guru_wali' || 
+    explode('?',basename($_SERVER['REQUEST_URI']))[0] == 'crudNilai.php'
   )
-  ) {
+) {
+
   $idGuru = query("SELECT id FROM guru WHERE nip = $_SESSION[nip]")[0]['id'];
 
   // SECTION HAPUS DAN EDIT NILAI
@@ -29,24 +30,45 @@ if (
     }
   }
   if (isset($_GET["editNilai"])) {
-    $idNilai = $_POST["idNilai"];
+    $idNilai = $_GET["idNilai"];
 
     $sqlEditNilai = "UPDATE nilai 
     SET 
-    uh = $_POST[uh],
-    uts = $_POST[uts],
-    uas = $_POST[uas],
-    na = $_POST[na]
+    uh = $_GET[uh],
+    uts = $_GET[uts],
+    uas = $_GET[uas],
+    na = $_GET[na]
     WHERE id = $idNilai";
     $queryEditNilai = mysqli_query($link, $sqlEditNilai);
 
-    if (mysqli_affected_rows($link) === 1) {
-      header("Location: guru_mapel/beranda.php?tEdit");
+    if (mysqli_affected_rows($link) == 1) {
+      header("Location: beranda.php?tEdit");
     } else {
-      header("Location: guru_mapel/beranda.php?fEdit");
+      header("Location: beranda.php?fEdit");
     }
   }
   // !SECTION HAPUS DAN EDIT NILAI
+
+  if (
+    isset($_GET['tEdit']) || 
+    isset($_GET['fEdit']) || 
+    isset($_GET['editNilai'])
+  ){
+    $sqlReadNilai = "SELECT *,
+      siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+      jurusan.nama AS nama_j,
+      guru.nama AS nama_g, guru.alamat AS alamat_g,
+      nilai.id AS id_nilai
+      FROM siswa 
+      INNER JOIN kelas ON siswa.id_kelas = kelas.id 
+      INNER JOIN angkatan ON kelas.angkatan = angkatan.angkatan
+      INNER JOIN jurusan ON kelas.kode_jurusan = jurusan.kode_jurusan
+      INNER JOIN mengajar ON siswa.nis = mengajar.nis
+      INNER JOIN guru ON mengajar.id_guru = guru.id
+      INNER JOIN nilai ON  mengajar.id = nilai.id_mengajar
+      WHERE 
+      mengajar.id_guru = $idGuru";
+  }
 
   // SECTION PENGKATEGORIAN DEFAULT
   if (
@@ -575,8 +597,14 @@ if (isset($_SESSION['nis']) && array_slice(explode('/', $_SERVER['REQUEST_URI'])
   }
   // !SECTION AKSES SISWA
 }
-
-
-
-
-$nilaiSiswa = query($sqlReadNilai);
+function query2($sql)
+{
+  global $link;
+  $rows = [];
+  $query = mysqli_query($link,$sql);
+  while ($row = mysqli_fetch_assoc($query)) {
+    $rows[] = $row;
+  }
+  return $rows;
+}
+$nilaiSiswa = query2($sqlReadNilai);

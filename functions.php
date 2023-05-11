@@ -1,19 +1,18 @@
 <?php
 
-$link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_v3");
-
-session_start();
+$link = mysqli_connect("localhost", "root", "", "bindo_nilai_siswa_v3");
 
 $i = 1;
 $j = 1;
 $tahunAjaran = date('Y') - 1 . '-' . date('Y');
 
+session_start();
 function query($sql)
 {
   global $link;
   $rows = [];
-  $query = $link->query($sql);
-  while ($row = $query->fetch_assoc()) {
+  $query = mysqli_query($link,$sql);
+  while ($row = mysqli_fetch_assoc($query)) {
     $rows[] = $row;
   }
   return $rows;
