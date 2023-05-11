@@ -7,6 +7,7 @@ if (!isset($_SESSION["login_wali"])) {
 }
 
 require '../crudNilai.php';
+
 ?>
 
 <!doctype html>

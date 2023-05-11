@@ -1,9 +1,10 @@
 <?php 
-require 'functions.php';
-
+require '../functions.php';
+include 'crudSiswa.php';
 
 // TAMBAH
 
+$dataKelas = query("SELECT * FROM kelas");
 
 if (isset($_POST["submit"])){
 
@@ -131,9 +132,17 @@ if (isset($_POST["submit"])){
                                     <option value="L">L</option>
                                     <option value="P">P</option>
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kelas" class="form-label">Kelas</label>
+                                <select class="form-select form-select-md" name="kelas" id="kelas">
+                                    <?php foreach($dataKelas as $data) : ?>
+                                        <option value="<?= $data['id'] ?>"><?= $data['angkatan'] ?> - <?= $data['kode_jurusan'] ?></option>
+                                    <?php endforeach ; ?>
+                                </select>
                             </div>                           
                             
-                           <div class="mb-3 w-25">
+                           <!-- <div class="mb-3 w-25">
                                 <label for="angkatan" class="form-label text-white">Angkatan :</label>
                                 <select class="form-select" id="angkatan" name="angkatan" type="text" aria-label="Default select example">
                                     <option selected>Angkatan </option>
@@ -143,14 +152,13 @@ if (isset($_POST["submit"])){
                                     
                                 </select>
                             </div>
-                            
                             <div class="mb-3 w-25">
                                 <label for="jurusan" class="form-label text-white">Jurusan :</label>
                                 <select class="form-select" id="jurusan" name="kode_jurusan" type="text" aria-label="Default select example">
                                     <option selected>Jurusan </option>
                                     <option value="RPL-1">Rekayasa Perangkat Lunak 1</option>
                                 </select>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="mb-3">
