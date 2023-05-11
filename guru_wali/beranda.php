@@ -240,7 +240,7 @@ if (isset($_POST["submit"])) {
                           </div>
                           <div class="mb-3">
                             <label for="nama" class="form-label text-white">Nama :</label>
-                            <input type="text" class="form-control" id="nama" name="nama" requaired value="<?= $row["nama"]; ?>">
+                            <input type="text" class="form-control" id="nama" name="nama" requaired value="<?= $row["nama_s"]; ?>">
                           </div>
                           <div class="mb-3">
                             <label for="jk" class="form-label text-white">Jenis Kelamin :</label>
