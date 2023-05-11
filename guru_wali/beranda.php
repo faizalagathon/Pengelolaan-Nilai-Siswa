@@ -7,7 +7,7 @@ if (!isset($_SESSION["login_wali"])) {
 include "crudSiswa.php";
 $siswa = query("SELECT 
 *, 
-siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s, siswa.password AS pass_s,
 jurusan.nama AS nama_j,
 guru.nama AS nama_g, guru.alamat AS alamat_g
 FROM siswa 
@@ -20,13 +20,13 @@ WHERE guru.is_walikelas = 1 AND guru.nip = $_SESSION[nip]
 ");
 
 if (isset($_POST["cari"])) {
-  $siswa = cariSiswa($_POST["keyword"]);
+  $siswa = cari($_POST["keyword"]);
 }
 
 if (isset($_POST["urut"]) && $_POST["urut"] == "asc") {
   $siswa = query("SELECT 
   *, 
-  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s, siswa.password AS pass_s,
   jurusan.nama AS nama_j,
   guru.nama AS nama_g, guru.alamat AS alamat_g
   FROM siswa 
@@ -41,7 +41,7 @@ if (isset($_POST["urut"]) && $_POST["urut"] == "asc") {
 if (isset($_POST["urut"]) && $_POST["urut"] == "desc") {
   $siswa = query("SELECT 
   *, 
-  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s,
+  siswa.nama AS nama_s, siswa.alamat AS alamat_s, siswa.jk AS jk_s, siswa.password AS pass_s,
   jurusan.nama AS nama_j,
   guru.nama AS nama_g, guru.alamat AS alamat_g
   FROM siswa 
@@ -206,7 +206,7 @@ if (isset($_POST["submit"])) {
             <td><?= $row["alamat_s"]; ?></td>
             <td><?= $row["angkatan"]; ?></td>
             <td><?= $row["kode_jurusan"]; ?></td>
-            <td><?= $row["password"]; ?></td>
+            <td><?= $row["pass_s"]; ?></td>
             <td class="text-center">
               <button class="bg-transparent border-0">
                 <a href="aksi_hapus.php?id=<?= $row["nis"]; ?>" onclick="return confirm('apakah anda yakin ingin menghapus?')" ;>
@@ -233,7 +233,7 @@ if (isset($_POST["submit"])) {
                     <div class="modal-body bg-secondary">
                       <form action="" class="text-start" method="POST">
                         <div class="row">
-                          <input type="hidden" name="id" value="<?= $row["nis"]; ?>">
+                          <input type="hidden" name="nis" value="<?= $row["nis"]; ?>">
                           <div class="mb-3">
                             <label for="nis" class="form-label text-white">NIS :</label>
                             <input type="text" class="form-control" id="nis" name="nis" disabled value="<?= $row["nis"]; ?>">

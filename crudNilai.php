@@ -110,7 +110,8 @@ if (
       INNER JOIN mengajar ON siswa.nis = mengajar.nis
       INNER JOIN guru ON mengajar.id_guru = guru.id
       INNER JOIN nilai ON mengajar.id = nilai.id_mengajar
-      WHERE mengajar.id_guru = $idGuru";
+      WHERE mengajar.id_guru = $idGuru
+      GROUP BY siswa.nis";
   }
   // !SECTION PENGKATEGORIAN DEFAULT
 

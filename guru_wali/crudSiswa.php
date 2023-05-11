@@ -90,7 +90,7 @@ for($i=0;$i<$jumlahData;$i++){
 //Acak Password
 if (isset($_GET['paramAksi']) && $_GET['paramAksi'] == "acakPass") {
   $passwordAcak = "S";
-  $id = $_GET['id'];
+  $id = $_GET['nis'];
   $jumlahPass = 7;
   $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $link = new mysqli("localhost", "root", "", "bindo_nilai_siswa_v3");
@@ -108,19 +108,18 @@ if (isset($_GET['paramAksi']) && $_GET['paramAksi'] == "acakPass") {
 //Akhir Acak Password
 
 
-function hapusSiswa($id)
+function hapus($id)
 {
   global $link;
-  mysqli_query($link, "DELETE FROM siswa where id=$id");
+  mysqli_query($link, "DELETE FROM siswa where nis=$id");
 
   return mysqli_affected_rows($link);
 }
 
-function ubahSiswa($data)
+function ubah($data)
 {
   global $link;
-  $id = ($data["id"]);
-  $nis = htmlspecialchars($data["nis"]);
+  $id = ($data["nis"]);
   $nama = htmlspecialchars($data["nama"]);
   $jk = htmlspecialchars($data["jk"]);
   $alamat = htmlspecialchars($data["alamat"]);
@@ -128,12 +127,10 @@ function ubahSiswa($data)
 
 
   $query = "UPDATE siswa SET 
-            nis = '$nis',
             nama = '$nama',
             jk = '$jk',
             alamat = '$alamat'
-           
-            WHERE id=$id
+            WHERE nis=$id
             ";
 
   mysqli_query($link, $query);
@@ -141,7 +138,7 @@ function ubahSiswa($data)
   return mysqli_affected_rows($link);
 }
 
-function cariSiswa($keyword)
+function cari($keyword)
 {
   $query = "SELECT * FROM siswa
                 WHERE 
