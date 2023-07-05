@@ -100,7 +100,7 @@ if (isset($_GET['paramAksi']) && $_GET['paramAksi'] == "acakPass") {
     $passwordAcak .= $characters[$index];
   }
 
-  $query = "UPDATE siswa SET password='$passwordAcak' WHERE nis='$id'";
+  $query = "UPDATE siswa SET password='$passwordAcak' WHERE nis = '$id'";
   mysqli_query($link, $query);
 
   header("Location: beranda.php");

@@ -217,7 +217,7 @@ if (isset($_POST["submit"])) {
                 <img src="../icon/edit1.png" width="30rem" alt="edit">
               </button>
               <button class="bg-transparent border-0">
-                <a href="crudSiswa.php?id=<?=$row['nis']?>&paramAksi=acakPass" onclick="return confirm('Yakin ingin merubah Password siswa?')">
+                <a href="?id=<?=$row['nis']?>&paramAksi=acakPass" onclick="return confirm('Yakin ingin merubah Password siswa?')">
                   <img src="../icon/refresh-button.png" width="30rem" alt="Refresh">
                 </a>
               </button>
